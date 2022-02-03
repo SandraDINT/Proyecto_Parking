@@ -24,8 +24,16 @@ namespace Proyecto_Parking.ViewModel
             set { SetProperty(ref _estacionamientoActual, value); }
         }
 
+        private int _totalPlazasCoche;
+        public int TotalPlazasCoche
+        {
+            get { return _totalPlazasCoche; }
+            set { SetProperty(ref _totalPlazasCoche, value); }
+        }
         public EstacionamientoVM()
         {
+            _totalPlazasCoche = Properties.Settings.Default.numPlazasCoche;
+
             //Servicios
             azureService = new ServicioAzure();
             dialogosService = new ServicioDialogos();

@@ -52,12 +52,12 @@ namespace Proyecto_Parking.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("50")]
-        public int numPlazas {
+        public int numPlazasCoche {
             get {
-                return ((int)(this["numPlazas"]));
+                return ((int)(this["numPlazasCoche"]));
             }
             set {
-                this["numPlazas"] = value;
+                this["numPlazasCoche"] = value;
             }
         }
     }

@@ -24,13 +24,6 @@ namespace Proyecto_Parking
             set { SetProperty(ref _matricula, value); }
         }
 
-        private int _plazas;
-        public int Plazas
-        {
-            get { return _plazas; }
-            set { SetProperty(ref _plazas, value); }
-        }
-
         private string _tipoVehiculo;
         public string TipoVehiculo
         {
@@ -40,7 +33,7 @@ namespace Proyecto_Parking
 
         public Estacionamiento()
         {
-            _plazas = Properties.Settings.Default.numPlazas;
+            
             
         }
     }
