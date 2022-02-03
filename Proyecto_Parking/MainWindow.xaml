@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proyecto_Parking"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow"
+        Height="450"
+        Width="800">
+    <DockPanel LastChildFill="False">
+        <Button Content="Examinar"
+                DockPanel.Dock="Top"
+                Width="100"
+                Margin="10" 
+                Command="{Binding Path=AbrirExaminarCommand}"/>
+        <Image Width="350"
+               DockPanel.Dock="Left"
+               Margin="10"
+               Source="{Binding Path=EstacionamientoActual.Foto}"/>
+        <StackPanel Orientation="Vertical"
+                    DockPanel.Dock="Right"
+                    VerticalAlignment="Top">
+            <StackPanel Height="150"
+                        Margin="10">
+                <TextBlock Text="Plazas libres de coche"
+                           FontSize="26" />
+                <TextBlock Text="nº plazas" />
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Right"
+                        VerticalAlignment="Top"
+                        Height="150"
+                        Margin="10">
+                <TextBlock Text="Plazas libres de moto"
+                           FontSize="26" />
+                <TextBlock Text="nº plazas" />
+            </StackPanel>
+        </StackPanel>
         
-    </Grid>
+    </DockPanel>
 </Window>

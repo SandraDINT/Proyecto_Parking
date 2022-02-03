@@ -1,7 +1,15 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Proyecto_Parking.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="cadenaConexion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DefaultEndpointsProtocol=https;AccountName=dintactividadjuego;AccountKey=lXb3S+5VM1XHwy19G3f44mrkanj4apLcSu8uSX9pP/Tn89kpIRJGhtyO2tQuqlNmQwKz5DobVSR6cIe1JkmXDg==;EndpointSuffix=core.windows.net</Value>
+    </Setting>
+    <Setting Name="nombreContenedorBlobs" Type="System.String" Scope="User">
+      <Value Profile="(Default)">imagenes</Value>
+    </Setting>
+    <Setting Name="numPlazas" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

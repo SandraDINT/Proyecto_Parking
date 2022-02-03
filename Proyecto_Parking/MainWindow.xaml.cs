@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proyecto_Parking.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace Proyecto_Parking
     /// </summary>
     public partial class MainWindow : Window
     {
+        EstacionamientoVM vm;
         public MainWindow()
         {
             InitializeComponent();
+            vm = new EstacionamientoVM();
+            this.DataContext = vm;
         }
     }
 }
