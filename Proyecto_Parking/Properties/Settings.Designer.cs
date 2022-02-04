@@ -23,7 +23,7 @@ namespace Proyecto_Parking.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("DefaultEndpointsProtocol=https;AccountName=dintactividadjuego;AccountKey=lXb3S+5V" +
             "M1XHwy19G3f44mrkanj4apLcSu8uSX9pP/Tn89kpIRJGhtyO2tQuqlNmQwKz5DobVSR6cIe1JkmXDg==" +
@@ -32,20 +32,14 @@ namespace Proyecto_Parking.Properties {
             get {
                 return ((string)(this["cadenaConexion"]));
             }
-            set {
-                this["cadenaConexion"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("imagenes")]
         public string nombreContenedorBlobs {
             get {
                 return ((string)(this["nombreContenedorBlobs"]));
-            }
-            set {
-                this["nombreContenedorBlobs"] = value;
             }
         }
         
@@ -58,6 +52,42 @@ namespace Proyecto_Parking.Properties {
             }
             set {
                 this["numPlazasCoche"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://customvisiondintjorge-prediction.cognitiveservices.azure.com")]
+        public string EnlaceIAReconocimientoVehiculo {
+            get {
+                return ((string)(this["EnlaceIAReconocimientoVehiculo"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("23360369-7f9f-4219-85c2-348b23fc0b77")]
+        public string ProjectIAReconocimientoVehiculo_id {
+            get {
+                return ((string)(this["ProjectIAReconocimientoVehiculo_id"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CocheMotoIteration")]
+        public string PublishedIAReconocimientoVehiculo_name {
+            get {
+                return ((string)(this["PublishedIAReconocimientoVehiculo_name"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("f052899ff22c406fbd26749d9d8cf8c8")]
+        public string Prediction_key {
+            get {
+                return ((string)(this["Prediction_key"]));
             }
         }
     }

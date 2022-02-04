@@ -2,14 +2,26 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Proyecto_Parking.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="cadenaConexion" Type="System.String" Scope="User">
+    <Setting Name="cadenaConexion" Type="System.String" Scope="Application">
       <Value Profile="(Default)">DefaultEndpointsProtocol=https;AccountName=dintactividadjuego;AccountKey=lXb3S+5VM1XHwy19G3f44mrkanj4apLcSu8uSX9pP/Tn89kpIRJGhtyO2tQuqlNmQwKz5DobVSR6cIe1JkmXDg==;EndpointSuffix=core.windows.net</Value>
     </Setting>
-    <Setting Name="nombreContenedorBlobs" Type="System.String" Scope="User">
+    <Setting Name="nombreContenedorBlobs" Type="System.String" Scope="Application">
       <Value Profile="(Default)">imagenes</Value>
     </Setting>
     <Setting Name="numPlazasCoche" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">50</Value>
+    </Setting>
+    <Setting Name="EnlaceIAReconocimientoVehiculo" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://customvisiondintjorge-prediction.cognitiveservices.azure.com</Value>
+    </Setting>
+    <Setting Name="ProjectIAReconocimientoVehiculo_id" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">23360369-7f9f-4219-85c2-348b23fc0b77</Value>
+    </Setting>
+    <Setting Name="PublishedIAReconocimientoVehiculo_name" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">CocheMotoIteration</Value>
+    </Setting>
+    <Setting Name="Prediction_key" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">f052899ff22c406fbd26749d9d8cf8c8</Value>
     </Setting>
   </Settings>
 </SettingsFile>
