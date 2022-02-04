@@ -23,5 +23,11 @@
     <Setting Name="Prediction_key" Type="System.String" Scope="Application">
       <Value Profile="(Default)">f052899ff22c406fbd26749d9d8cf8c8</Value>
     </Setting>
+    <Setting Name="SubscriptionKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">c26cc21a0e704bf68df17f7741dacb8a</Value>
+    </Setting>
+    <Setting Name="EndpointCoputerVision" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://computervisiondint.cognitiveservices.azure.com</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

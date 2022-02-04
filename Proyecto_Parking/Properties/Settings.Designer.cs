@@ -90,5 +90,23 @@ namespace Proyecto_Parking.Properties {
                 return ((string)(this["Prediction_key"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("c26cc21a0e704bf68df17f7741dacb8a")]
+        public string SubscriptionKey {
+            get {
+                return ((string)(this["SubscriptionKey"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://computervisiondint.cognitiveservices.azure.com")]
+        public string EndpointCoputerVision {
+            get {
+                return ((string)(this["EndpointCoputerVision"]));
+            }
+        }
     }
 }

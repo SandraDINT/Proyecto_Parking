@@ -129,6 +129,7 @@
     </ApplicationDefinition>
     <Compile Include="clase\clasesServicios\CustomVisionReturn.cs" />
     <Compile Include="clase\clasesServicios\Prediction.cs" />
+    <Compile Include="Servicios\LeerMatriculaService.cs" />
     <Compile Include="Servicios\ReconocimientoVehiculoService.cs" />
     <Compile Include="Servicios\ServicioAzure.cs" />
     <Compile Include="Servicios\ServicioDialogos.cs" />
