@@ -162,7 +162,7 @@ namespace Proyecto_Parking.Servicios
         }
 
         //cuenta estacionamientos
-        public int CuentaEstacionamientosCoche()
+        public int CuentaEstacionamientosNoFinalizadosCoche()
         {
             //abro conexion
             conexion.Open();
@@ -180,7 +180,7 @@ namespace Proyecto_Parking.Servicios
             conexion.Close();
             return resultado;
         }
-        public int CuentaEstacionamientosMoto()
+        public int CuentaEstacionamientosNoFinalizadosMoto()
         {
             //abro conexion
             conexion.Open();
