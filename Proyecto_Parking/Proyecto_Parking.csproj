@@ -127,9 +127,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="clase\clasesServicios\CustomVisionReturn.cs" />
-    <Compile Include="clase\clasesServicios\Prediction.cs" />
-    <Compile Include="clase\Estacionamiento.cs" />
+    <Compile Include="Clases\clasesServicios\CustomVisionReturn.cs" />
+    <Compile Include="Clases\clasesServicios\Prediction.cs" />
+    <Compile Include="Clases\Cliente.cs" />
+    <Compile Include="Clases\Estacionamiento.cs" />
+    <Compile Include="Clases\Vehiculo.cs" />
+    <Compile Include="Servicios\BDService.cs" />
     <Compile Include="Servicios\LeerMatriculaService.cs" />
     <Compile Include="Servicios\ReconocimientoVehiculoService.cs" />
     <Compile Include="Servicios\ServicioAzure.cs" />
