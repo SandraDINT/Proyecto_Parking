@@ -15,7 +15,7 @@ namespace Proyecto_Parking.Servicios
         //Si no existe, lo creará
         SqliteConnection conexion = new SqliteConnection("Data Source = C:/bd_dint/parking.db");
 
-        #region TABLA CLIENTES select *
+        #region TABLA CLIENTES
         //select *
         public ObservableCollection<Cliente> RecorreClientes()
         {
@@ -104,7 +104,7 @@ namespace Proyecto_Parking.Servicios
         }
         #endregion
 
-        #region TABLA ESTACIONAMIENTOS insert, update, select *
+        #region TABLA ESTACIONAMIENTOS
         //insert
         public void InsertaEstacionamiento(Estacionamiento estacionamiento)
         {
@@ -160,6 +160,46 @@ namespace Proyecto_Parking.Servicios
             conexion.Close();
             return estacionamiento;
         }
+
+        //cuenta estacionamientos
+        public int CuentaEstacionamientosCoche()
+        {
+            //abro conexion
+            conexion.Open();
+            SqliteCommand comando = conexion.CreateCommand();
+            int resultado = 0;
+            //Consulta de selección
+            comando.CommandText = "SELECT COUNT(*) AS resultado FROM estacionamientos WHERE salida LIKE '' AND tipo LIKE 'Coche'";
+            SqliteDataReader lector = comando.ExecuteReader();
+            if (lector.HasRows)
+            {
+                lector.Read();
+                resultado = (int)lector["resultado"];
+            }
+            //cierro conexion
+            conexion.Close();
+            return resultado;
+        }
+        public int CuentaEstacionamientosMoto()
+        {
+            //abro conexion
+            conexion.Open();
+            SqliteCommand comando = conexion.CreateCommand();
+            int resultado = 0;
+            //Consulta de selección
+            comando.CommandText = "SELECT COUNT(*) AS resultado FROM estacionamientos WHERE salida LIKE '' AND tipo LIKE 'Motocicleta'";
+            SqliteDataReader lector = comando.ExecuteReader();
+            if (lector.HasRows)
+            {
+                lector.Read();
+                resultado = (int)lector["resultado"];
+            }
+            //cierro conexion
+            conexion.Close();
+            return resultado;
+        }
+
+
         //select estacionamientos no finalizados
         public ObservableCollection<Estacionamiento> RecorreEstacionamientosNoFinalizados()
         {
@@ -193,7 +233,7 @@ namespace Proyecto_Parking.Servicios
 
         #endregion
 
-        #region TABLA VEHICULOS insert, delete, update, select *
+        #region TABLA VEHICULOS
 
         //select *
         public ObservableCollection<Vehiculo> RecorreVehiculos()
@@ -233,6 +273,27 @@ namespace Proyecto_Parking.Servicios
             comando.CommandText = "SELECT * FROM vehiculos WHERE id_cliente LIKE @idCliente";
             comando.Parameters.Add("@idCliente", SqliteType.Integer);
             comando.Parameters["@idCliente"].Value = cliente.IdCliente;
+
+            SqliteDataReader lector = comando.ExecuteReader();
+            bool encuentra = false;
+            if (lector.HasRows)
+            {
+                encuentra = true;
+            }
+            //cierro conexion
+            conexion.Close();
+            return encuentra;
+        }
+
+        public bool BuscaVehiculosPorMatricula(String matricula)
+        {
+            //abro conexion
+            conexion.Open();
+            SqliteCommand comando = conexion.CreateCommand();
+            //Consulta de selección
+            comando.CommandText = "SELECT * FROM vehiculos WHERE matricula LIKE @matricula";
+            comando.Parameters.Add("@matricula", SqliteType.Text);
+            comando.Parameters["@matricula"].Value = matricula;
 
             SqliteDataReader lector = comando.ExecuteReader();
             bool encuentra = false;
