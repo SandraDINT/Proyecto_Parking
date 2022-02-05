@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using Proyecto_Parking.clase;
+using Proyecto_Parking.Clases;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,79 +15,7 @@ namespace Proyecto_Parking.Servicios
         //Si no existe, lo creará
         SqliteConnection conexion = new SqliteConnection("Data Source = C:/bd_dint/parking.db");
 
-        #region TABLA CLIENTES insert, update, delete, select *
-        //insert
-        public void InsertaCliente(Cliente cliente)
-        {
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO clientes(nombre,documento, foto, edad, genero,telefono) VALUES (@nombre,@documento,@foto,@edad,@genero,@telefono)";
-            comando.Parameters.Add("@nombre", SqliteType.Text);
-            comando.Parameters.Add("@documento", SqliteType.Text);
-            comando.Parameters.Add("@foto", SqliteType.Text);
-            comando.Parameters.Add("@edad", SqliteType.Integer);
-            comando.Parameters.Add("@genero", SqliteType.Text);
-            comando.Parameters.Add("@telefono", SqliteType.Text);
-            //asigno valores
-            comando.Parameters["@nombre"].Value = cliente.Nombre;
-            comando.Parameters["@documento"].Value = cliente.Documento;
-            comando.Parameters["@foto"].Value = cliente.Foto;
-            comando.Parameters["@edad"].Value = cliente.Edad;
-            comando.Parameters["@genero"].Value = cliente.Genero;
-            comando.Parameters["@telefono"].Value = cliente.Telefono;
-            //ejecuta comando
-            comando.ExecuteNonQuery();
-            //cierra conexión
-            conexion.Close();
-        }
-
-        //delete
-        public void EliminaCliente(Cliente cliente)
-        {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "DELETE FROM clientes WHERE id_cliente = @id";
-            comando.Parameters.Add("@id", SqliteType.Integer);
-            comando.Parameters["@id"].Value = cliente.IdCliente;
-            //ejecuta comando
-            comando.ExecuteNonQuery();
-            //cierro conexion
-            conexion.Close();
-        }
-        //update
-        public void EditaCliente(Cliente cliente, int id)
-        {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "UPDATE clientes " +
-                "SET nombre = @nombre, documento = @documento, " +
-                "foto = @foto, edad = @edad, genero = @genero, " +
-                "telefono = @telefono WHERE id_cliente = @id";
-
-            comando.Parameters.Add("@id", SqliteType.Integer);
-            comando.Parameters.Add("@nombre", SqliteType.Text);
-            comando.Parameters.Add("@documento", SqliteType.Text);
-            comando.Parameters.Add("@foto", SqliteType.Text);
-            comando.Parameters.Add("@edad", SqliteType.Integer);
-            comando.Parameters.Add("@genero", SqliteType.Text);
-            comando.Parameters.Add("@telefono", SqliteType.Text);
-            //asigno valores
-            comando.Parameters["@id"].Value = id;
-            comando.Parameters["@nombre"].Value = cliente.Nombre;
-            comando.Parameters["@documento"].Value = cliente.Documento;
-            comando.Parameters["@foto"].Value = cliente.Foto;
-            comando.Parameters["@edad"].Value = cliente.Edad;
-            comando.Parameters["@genero"].Value = cliente.Genero;
-            comando.Parameters["@telefono"].Value = cliente.Telefono;
-            //ejecuta comando
-            int a = comando.ExecuteNonQuery();
-            //cierro conexion
-            conexion.Close();
-        }
+        #region TABLA CLIENTES select *
         //select *
         public ObservableCollection<Cliente> RecorreClientes()
         {
@@ -169,135 +101,6 @@ namespace Proyecto_Parking.Servicios
             //cierro conexion
             conexion.Close();
             return clienteBuscado;
-        }
-        #endregion
-
-        #region TABLA MARCAS insert, delete, update, select *
-        //insert
-        public void InsertaMarca(string marca)
-        {
-            //abre conexión
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO marcas(marca) VALUES (@marca)";
-            comando.Parameters.Add("@marca", SqliteType.Text);
-            comando.Parameters["@marca"].Value = marca;
-            comando.ExecuteNonQuery();
-            //cierra conexión
-            conexion.Close();
-        }
-        public String BuscaMarcaPorId(int idBuscar)
-        {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            string marca = null;
-            comando.CommandText = "SELECT * FROM marcas WHERE id_marca LIKE @idBuscar";
-            comando.Parameters.Add("@idBuscar", SqliteType.Integer);
-            comando.Parameters["@idBuscar"].Value = idBuscar;
-            SqliteDataReader lector = comando.ExecuteReader();
-            if (lector.HasRows)
-            {
-                lector.Read();
-                marca = (string)lector["marca"];
-            }
-            //cierro conexion
-            conexion.Close();
-            return marca;
-        }
-        public Marca BuscaMarca(string marcaBuscar)
-        {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "SELECT * FROM marcas WHERE marca LIKE @marcaBuscar";
-            comando.Parameters.Add("@marcaBuscar", SqliteType.Text);
-            comando.Parameters["@marcaBuscar"].Value = marcaBuscar;
-            SqliteDataReader lector = comando.ExecuteReader();
-            Marca marcaObj = null;
-            if (lector.HasRows)
-            {
-                lector.Read();
-                long id = (long)lector["id_marca"];
-                string marca = (string)lector["marca"];
-                marcaObj = new Marca((int)id, marca);
-            }
-            //cierro conexion
-            conexion.Close();
-            return marcaObj;
-        }
-        public ObservableCollection<Marca> RecorreMarcas()
-        {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "SELECT * FROM marcas";
-            SqliteDataReader lector = comando.ExecuteReader();
-            ObservableCollection<Marca> marcas = new ObservableCollection<Marca>();
-            if (lector.HasRows)
-            {
-                while (lector.Read())
-                {
-                    long id = (long)lector["id_marca"];
-                    string marca = (string)lector["marca"];
-                    marcas.Add(new Marca((int)id, marca));
-                }
-            }
-            //cierro conexion
-            conexion.Close();
-            return marcas;
-        }
-        public ObservableCollection<String> RecorreMarcaCadena()
-        {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "SELECT * FROM marcas";
-            SqliteDataReader lector = comando.ExecuteReader();
-            ObservableCollection<String> marcas = new ObservableCollection<String>();
-            if (lector.HasRows)
-            {
-                while (lector.Read())
-                {
-                    string marca = (string)lector["marca"];
-                    marcas.Add(marca);
-                }
-            }
-            //cierro conexion
-            conexion.Close();
-            return marcas;
-        }
-        //DELETE
-        public void EliminaMarca(Marca marca)
-        {
-            //abre conexión
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            comando.CommandText = "DELETE FROM marcas WHERE id_marca = @id";
-            comando.Parameters.Add("@id", SqliteType.Integer);
-            comando.Parameters["@id"].Value = marca.IdMarca;
-            comando.ExecuteNonQuery();
-            //cierra conexión
-            conexion.Close();
-        }
-        //UPDATE
-        public void EditaMarca(Marca marcaNueva, int idMarcaVieja)
-        {
-            //abre conexión
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            comando.CommandText = "UPDATE marcas SET marca = @marca WHERE id_marca = @id";
-            comando.Parameters.Add("@id", SqliteType.Integer);
-            comando.Parameters.Add("@marca", SqliteType.Text);
-            comando.Parameters["@id"].Value = idMarcaVieja;
-            comando.Parameters["@marca"].Value = marcaNueva.MarcaCadena;
-            comando.ExecuteNonQuery();
-            //cierra conexión
-            conexion.Close();
         }
         #endregion
 
@@ -387,56 +190,10 @@ namespace Proyecto_Parking.Servicios
             conexion.Close();
             return estacionamiento;
         }
-        //update en principio solo edita para poder finalizar el estacionamiento ???
-        public void EditaEstacionamiento(Estacionamiento estacionamientoFinalizado)
-        {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "UPDATE estacionamientos " +
-                "SET salida = @salida, importe = @importe WHERE id_estacionamiento = @id";
-            comando.Parameters.Add("@id", SqliteType.Integer);
-            comando.Parameters.Add("@salida", SqliteType.Text);
-            comando.Parameters.Add("@importe", SqliteType.Real);
-
-            //asigno valores
-            comando.Parameters["@id"].Value = estacionamientoFinalizado.IdEstacionamiento;
-            comando.Parameters["@salida"].Value = estacionamientoFinalizado.Salida;
-            comando.Parameters["@importe"].Value = estacionamientoFinalizado.Importe;
-
-            //ejecuta comando
-            comando.ExecuteNonQuery();
-            //cierro conexion
-            conexion.Close();
-        }
 
         #endregion
 
         #region TABLA VEHICULOS insert, delete, update, select *
-        //insert
-        public void InsertaVehiculo(Vehiculo vehiculo)
-        {
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO vehiculos(id_cliente, matricula, id_marca, modelo, tipo) " +
-                "VALUES (@id_cliente,@matricula,@id_marca,@modelo,@tipo)";
-            comando.Parameters.Add("@id_cliente", SqliteType.Integer);
-            comando.Parameters.Add("@matricula", SqliteType.Text);
-            comando.Parameters.Add("@id_marca", SqliteType.Integer);
-            comando.Parameters.Add("@modelo", SqliteType.Text);
-            comando.Parameters.Add("@tipo", SqliteType.Text);
-            //asigno valores
-            comando.Parameters["@id_cliente"].Value = vehiculo.IdCliente;
-            comando.Parameters["@matricula"].Value = vehiculo.Matricula;
-            comando.Parameters["@id_marca"].Value = vehiculo.IdMarca;
-            comando.Parameters["@modelo"].Value = vehiculo.Modelo;
-            comando.Parameters["@tipo"].Value = vehiculo.Tipo;
-            //ejecuta comando
-            comando.ExecuteNonQuery();
-            //cierra conexión
-            conexion.Close();
-        }
 
         //select *
         public ObservableCollection<Vehiculo> RecorreVehiculos()
@@ -486,52 +243,6 @@ namespace Proyecto_Parking.Servicios
             //cierro conexion
             conexion.Close();
             return encuentra;
-        }
-
-        //delete
-        public void EliminaVehiculo(Vehiculo vehiculo)
-        {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "DELETE FROM vehiculos WHERE id_vehiculo = @id";
-            comando.Parameters.Add("@id", SqliteType.Integer);
-            comando.Parameters["@id"].Value = vehiculo.IdVehiculo;
-            comando.ExecuteNonQuery();
-            //cierro conexion
-            conexion.Close();
-        }
-
-        //update
-        public void EditaVehiculo(Vehiculo vehiculo, int id)
-        {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "UPDATE vehiculos " +
-                "SET id_cliente = @id_cliente, matricula = @matricula, " +
-                "id_marca = @id_marca, modelo = @modelo, tipo = @tipo " +
-                "WHERE id_vehiculo = @id";
-
-            comando.Parameters.Add("@id", SqliteType.Integer);
-            comando.Parameters.Add("@id_cliente", SqliteType.Integer);
-            comando.Parameters.Add("@matricula", SqliteType.Text);
-            comando.Parameters.Add("@id_marca", SqliteType.Integer);
-            comando.Parameters.Add("@modelo", SqliteType.Text);
-            comando.Parameters.Add("@tipo", SqliteType.Text);
-            //asigno valores
-            comando.Parameters["@id"].Value = id;
-            comando.Parameters["@id_cliente"].Value = vehiculo.IdCliente;
-            comando.Parameters["@matricula"].Value = vehiculo.Matricula;
-            comando.Parameters["@id_marca"].Value = vehiculo.IdMarca;
-            comando.Parameters["@modelo"].Value = vehiculo.Modelo;
-            comando.Parameters["@tipo"].Value = vehiculo.Tipo;
-            //ejecuta comando
-            comando.ExecuteNonQuery();
-            //cierro conexion
-            conexion.Close();
         }
         #endregion
     }
