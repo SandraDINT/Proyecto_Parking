@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Proyecto_Parking.clase;
 using Proyecto_Parking.Servicios;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace Proyecto_Parking.ViewModel
             azureService = new ServicioAzure();
             dialogosService = new ServicioDialogos();
 
-            EstacionamientoActual = new Estacionamiento();
+           // EstacionamientoActual = new Estacionamiento();
 
             //Comandos
             AbrirExaminarCommand = new RelayCommand(AbrirExaminar);
@@ -48,7 +49,7 @@ namespace Proyecto_Parking.ViewModel
         {
             string rutaImagen = dialogosService.AbrirArchivoDialogo(filtrosRuta);
             string rutaAzure = azureService.GuardarImagen(rutaImagen);
-            EstacionamientoActual.Foto = rutaAzure;
+           // EstacionamientoActual.Foto = rutaAzure;
         }
     }
 }
