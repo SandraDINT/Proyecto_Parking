@@ -21,11 +21,11 @@ namespace Proyecto_Parking
     /// </summary>
     public partial class MainWindow : Window
     {
-        EstacionamientoVM vm;
+        MainWindowVM vm;
         public MainWindow()
         {
             InitializeComponent();
-            vm = new EstacionamientoVM();
+            vm = new MainWindowVM();
             this.DataContext = vm;
         }
     }

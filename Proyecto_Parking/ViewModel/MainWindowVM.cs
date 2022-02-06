@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Parking.ViewModel
 {
-    class EstacionamientoVM : ObservableObject
+    class MainWindowVM : ObservableObject
     {
         private ServicioDialogos dialogosService;
         private ServicioAzure azureService;
@@ -31,7 +31,7 @@ namespace Proyecto_Parking.ViewModel
             get { return _totalPlazasCoche; }
             set { SetProperty(ref _totalPlazasCoche, value); }
         }
-        public EstacionamientoVM()
+        public MainWindowVM()
         {
             _totalPlazasCoche = Properties.Settings.Default.numPlazasCoche;
 
