@@ -16,8 +16,7 @@
                 Command="{Binding Path=AbrirExaminarCommand}"/>
         <Image Width="350"
                DockPanel.Dock="Left"
-               Margin="10"
-               Source="{Binding Path=EstacionamientoActual.Foto}"/>
+               Margin="10"/>
         <StackPanel Orientation="Vertical"
                     DockPanel.Dock="Right"
                     VerticalAlignment="Top">

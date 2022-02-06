@@ -49,6 +49,8 @@ namespace Proyecto_Parking.ViewModel
         {
             string rutaImagen = dialogosService.AbrirArchivoDialogo(filtrosRuta);
             string rutaAzure = azureService.GuardarImagen(rutaImagen);
+
+            //La clase estacionamiento no tiene la propiedad Foto.
            // EstacionamientoActual.Foto = rutaAzure;
         }
     }
