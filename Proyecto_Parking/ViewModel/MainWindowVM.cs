@@ -12,6 +12,10 @@ namespace Proyecto_Parking.ViewModel
 {
     class MainWindowVM : ObservableObject
     {
+        private const int TOTAL_PLAZAS_COCHE = 50;
+        private const int TOTAL_PLAZAS_MOTO = 50;
+
+        private BDService bdService;
         private ServicioDialogos dialogosService;
         private ServicioAzure azureService;
 
@@ -25,33 +29,47 @@ namespace Proyecto_Parking.ViewModel
             set { SetProperty(ref _estacionamientoActual, value); }
         }
 
-        private int _totalPlazasCoche;
-        public int TotalPlazasCoche
+        private int _plazasLibreCoche;
+        public int PlazasLibreCoche
         {
-            get { return _totalPlazasCoche; }
-            set { SetProperty(ref _totalPlazasCoche, value); }
+            get { return _plazasLibreCoche; }
+            set { SetProperty(ref _plazasLibreCoche, value); }
         }
+
+        private int _totalPlazasMoto;
+        public int TotalPlazasMoto
+        {
+            get { return _totalPlazasMoto; }
+            set { SetProperty(ref _totalPlazasMoto, value); }
+        }
+
         public MainWindowVM()
         {
-            _totalPlazasCoche = Properties.Settings.Default.numPlazasCoche;
 
             //Servicios
             azureService = new ServicioAzure();
             dialogosService = new ServicioDialogos();
+            bdService = new BDService();
 
-           // EstacionamientoActual = new Estacionamiento();
+            Foto = "Assets/no_image_car.png";
+            _plazasLibreCoche = bdService.CuentaEstacionamientosNoFinalizadosCoche();
 
             //Comandos
             AbrirExaminarCommand = new RelayCommand(AbrirExaminar);
+        }
+
+        private string _foto;
+        public string Foto
+        {
+            get { return _foto; }
+            set { SetProperty(ref _foto, value); }
         }
 
         private void AbrirExaminar()
         {
             string rutaImagen = dialogosService.AbrirArchivoDialogo(filtrosRuta);
             string rutaAzure = azureService.GuardarImagen(rutaImagen);
-
-            //La clase estacionamiento no tiene la propiedad Foto.
-           // EstacionamientoActual.Foto = rutaAzure;
+            Foto = rutaAzure;
         }
     }
 }

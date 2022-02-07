@@ -59,7 +59,8 @@ namespace Proyecto_Parking.clase
         {
             get { return tipo; }
             set { SetProperty(ref tipo, value); }
-        }
+        }  
+
         public Estacionamiento()
         {
 

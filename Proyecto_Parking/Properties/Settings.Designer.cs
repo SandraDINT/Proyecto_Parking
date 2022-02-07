@@ -43,18 +43,6 @@ namespace Proyecto_Parking.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("50")]
-        public int numPlazasCoche {
-            get {
-                return ((int)(this["numPlazasCoche"]));
-            }
-            set {
-                this["numPlazasCoche"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://customvisiondintjorge-prediction.cognitiveservices.azure.com")]
