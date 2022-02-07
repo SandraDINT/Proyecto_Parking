@@ -174,7 +174,7 @@ namespace Proyecto_Parking.Servicios
             if (lector.HasRows)
             {
                 lector.Read();
-                resultado = (int)lector["resultado"];
+                resultado = Convert.ToInt32(lector["resultado"]); //daba error al castear así -> (int)lector["resultado]
             }
             //cierro conexion
             conexion.Close();
@@ -192,7 +192,7 @@ namespace Proyecto_Parking.Servicios
             if (lector.HasRows)
             {
                 lector.Read();
-                resultado = (int)lector["resultado"];
+                resultado = Convert.ToInt32(lector["resultado"]);
             }
             //cierro conexion
             conexion.Close();

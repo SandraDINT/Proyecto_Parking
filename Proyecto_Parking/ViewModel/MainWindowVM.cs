@@ -29,19 +29,35 @@ namespace Proyecto_Parking.ViewModel
             set { SetProperty(ref _estacionamientoActual, value); }
         }
 
-        private int _plazasLibreCoche;
-        public int PlazasLibreCoche
+
+        private int _plazasOcupadasCoche;
+        public int PlazasOcupadasCoche
         {
-            get { return _plazasLibreCoche; }
-            set { SetProperty(ref _plazasLibreCoche, value); }
+            get { return _plazasOcupadasCoche; }
+            set { SetProperty(ref _plazasOcupadasCoche, value); }
         }
 
-        private int _totalPlazasMoto;
-        public int TotalPlazasMoto
+        private int _plazasOcupadasMoto;
+        public int PlazasOcupadasMoto
         {
-            get { return _totalPlazasMoto; }
-            set { SetProperty(ref _totalPlazasMoto, value); }
+            get { return _plazasOcupadasMoto; }
+            set { SetProperty(ref _plazasOcupadasMoto, value); }
         }
+
+        private int _plazasLibresCoche;
+        public int PlazasLibresCoche
+        {
+            get { return _plazasLibresCoche; }
+            set { SetProperty(ref _plazasLibresCoche, value); }
+        }
+
+        private int _plazasLibresMoto;
+        public int PlazasLibresMoto
+        {
+            get { return _plazasLibresMoto; }
+            set { SetProperty(ref _plazasLibresMoto, value); }
+        }
+
 
         public MainWindowVM()
         {
@@ -52,12 +68,28 @@ namespace Proyecto_Parking.ViewModel
 
             //Variables
             Foto = "Assets/no_image_car.png";
-            _plazasLibreCoche = bdService.CuentaEstacionamientosNoFinalizadosCoche();
+
+            _plazasLibresCoche = SacarPlazasLibresCoche();
+            _plazasLibresMoto = SacarPlazasLibresMoto();
 
             //Comandos
             AbrirExaminarCommand = new RelayCommand(AbrirExaminar);
         }
+        private int SacarPlazasLibresCoche()
+        {
+            int plazasLibres = 0;
+            _plazasOcupadasCoche = bdService.CuentaEstacionamientosNoFinalizadosCoche();
+            plazasLibres = _plazasLibresCoche = TOTAL_PLAZAS_COCHE - _plazasOcupadasCoche;
+            return plazasLibres;
+        }
+        private int SacarPlazasLibresMoto()
+        {
+            int plazasLibres = 0;
+            _plazasOcupadasMoto = bdService.CuentaEstacionamientosNoFinalizadosMoto();
 
+            plazasLibres = _plazasLibresMoto = TOTAL_PLAZAS_MOTO - _plazasOcupadasMoto;
+            return plazasLibres;
+        }
         private string _foto;
         public string Foto
         {
