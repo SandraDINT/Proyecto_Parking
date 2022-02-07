@@ -52,7 +52,7 @@ namespace Proyecto_Parking.ViewModel
             bdService = new BDService();
 
             Foto = "Assets/no_image_car.png";
-            _plazasLibreCoche = bdService.CuentaEstacionamientosNoFinalizadosCoche();
+           // _plazasLibreCoche = bdService.CuentaEstacionamientosNoFinalizadosCoche();
 
             //Comandos
             AbrirExaminarCommand = new RelayCommand(AbrirExaminar);
