@@ -15,9 +15,9 @@ namespace Proyecto_Parking.ViewModel
         private const int TOTAL_PLAZAS_COCHE = 50;
         private const int TOTAL_PLAZAS_MOTO = 50;
 
-        private BDService bdService;
-        private ServicioDialogos dialogosService;
-        private ServicioAzure azureService;
+        private readonly BDService bdService;
+        private readonly ServicioDialogos dialogosService;
+        private readonly ServicioAzure azureService;
 
         private static string filtrosRuta = "JPG (*.jpg)|*.jpg|PNG (*.png*)|*.png*";
         public RelayCommand AbrirExaminarCommand { get; }
