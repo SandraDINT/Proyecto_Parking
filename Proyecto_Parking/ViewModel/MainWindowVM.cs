@@ -29,7 +29,6 @@ namespace Proyecto_Parking.ViewModel
             set { SetProperty(ref _estacionamientoActual, value); }
         }
 
-
         private int _plazasOcupadasCoche;
         public int PlazasOcupadasCoche
         {
@@ -68,7 +67,6 @@ namespace Proyecto_Parking.ViewModel
 
             //Variables
             Foto = "Assets/no_image_car.png";
-
             _plazasLibresCoche = SacarPlazasLibresCoche();
             _plazasLibresMoto = SacarPlazasLibresMoto();
 
@@ -102,6 +100,8 @@ namespace Proyecto_Parking.ViewModel
             string rutaImagen = dialogosService.AbrirArchivoDialogo(filtrosRuta);
             string rutaAzure = azureService.GuardarImagen(rutaImagen);
             Foto = rutaAzure;
+            Estacionamiento estacionamiento = new Estacionamiento();
+            bdService.InsertaEstacionamiento(estacionamiento);
         }
     }
 }
