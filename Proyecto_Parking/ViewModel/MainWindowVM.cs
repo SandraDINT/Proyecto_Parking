@@ -45,12 +45,12 @@ namespace Proyecto_Parking.ViewModel
 
         public MainWindowVM()
         {
-
             //Servicios
             azureService = new ServicioAzure();
             dialogosService = new ServicioDialogos();
             bdService = new BDService();
 
+            //Variables
             Foto = "Assets/no_image_car.png";
            // _plazasLibreCoche = bdService.CuentaEstacionamientosNoFinalizadosCoche();
 
