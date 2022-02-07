@@ -119,6 +119,9 @@ namespace Proyecto_Parking.Servicios
             comando.Parameters.Add("@importe", SqliteType.Real);
             comando.Parameters.Add("@tipo", SqliteType.Text);
             //asigno valores
+            //si no esta en la bd
+            comando.Parameters["@id_vehiculo"].Value = DBNull.Value;
+            // si sí
             comando.Parameters["@id_vehiculo"].Value = estacionamiento.IdVehiculo;
             comando.Parameters["@matricula"].Value = estacionamiento.Matricula;
             comando.Parameters["@entrada"].Value = estacionamiento.Entrada;
