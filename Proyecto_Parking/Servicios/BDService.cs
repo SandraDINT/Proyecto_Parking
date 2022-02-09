@@ -103,6 +103,28 @@ namespace Proyecto_Parking.Servicios
             conexion.Close();
             return clienteBuscado;
         }
+
+        public bool BuscaEstacionamientoPorMatricula(String matricula)
+        {
+            //abro conexion
+            conexion.Open();
+            SqliteCommand comando = conexion.CreateCommand();
+            //Consulta de selección
+            comando.CommandText = "SELECT * FROM estacionamientos WHERE matricula LIKE @matricula";
+            comando.Parameters.Add("@matricula", SqliteType.Text);
+            comando.Parameters["@matricula"].Value = matricula;
+
+            SqliteDataReader lector = comando.ExecuteReader();
+            bool encuentra = false;
+            if (lector.HasRows)
+            {
+                encuentra = true;
+            }
+            //cierro conexion
+            conexion.Close();
+            return encuentra;
+        }
+
         #endregion
 
         #region TABLA ESTACIONAMIENTOS
