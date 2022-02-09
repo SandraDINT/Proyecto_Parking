@@ -49,6 +49,9 @@
                            FontSize="25" />
             </StackPanel>
         </StackPanel>
-        
+        <Button DockPanel.Dock="Bottom"
+                Content="ENTRAR AL PARKING"
+                HorizontalAlignment="Center"
+                Margin="5"/>
     </DockPanel>
 </Window>
