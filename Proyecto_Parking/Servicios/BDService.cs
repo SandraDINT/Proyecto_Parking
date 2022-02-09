@@ -139,7 +139,6 @@ namespace Proyecto_Parking.Servicios
             //cierra conexión
             conexion.Close();
         }
-
         //cuenta estacionamientos
         public int CuentaEstacionamientosNoFinalizadosCoche()
         {
@@ -177,7 +176,6 @@ namespace Proyecto_Parking.Servicios
             conexion.Close();
             return resultado;
         }
-
         //select estacionamientos no finalizados
         public ObservableCollection<Estacionamiento> RecorreEstacionamientosNoFinalizados()
         {
