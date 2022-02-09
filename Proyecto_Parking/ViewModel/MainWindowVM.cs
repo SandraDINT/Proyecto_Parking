@@ -49,6 +49,13 @@ namespace Proyecto_Parking.ViewModel
             set { SetProperty(ref _plazasOcupadasCoche, value); }
         }
 
+        private int _idVehiculo;
+        public int IdVehiculo
+        {
+            get { return _idVehiculo; }
+            set { SetProperty(ref _idVehiculo, value); }
+        }
+
         private int _plazasOcupadasMoto;
         public int PlazasOcupadasMoto
         {
@@ -129,17 +136,16 @@ namespace Proyecto_Parking.ViewModel
             EstacionamientoActual.Matricula = matricula;
             EstacionamientoActual.Tipo = tipo;
 
-            if (bdService.BuscaVehiculosPorMatricula(matricula))
+            if (!bdService.BuscaEstacionamientoPorMatricula(matricula))
             {
-                MessageBox.Show("Abonado");
-
-                _listaEstacionamientos = bdService.RecorreEstacionamientosNoFinalizados();
-
-                if (_listaEstacionamientos.Contains(EstacionamientoActual))
+                if (bdService.BuscaVehiculosPorMatricula(matricula))
                 {
-
+                    MessageBox.Show("Abonado");
                 }
+                IdVehiculo = -1;
             }
+            else
+                MessageBox.Show("Estacionamiento ya activo, imposible crear");
         }
     }
 }

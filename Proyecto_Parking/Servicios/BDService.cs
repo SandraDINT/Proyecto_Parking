@@ -104,7 +104,7 @@ namespace Proyecto_Parking.Servicios
             return clienteBuscado;
         }
 
-        public bool BuscaEstacionamientoPorMatricula(String matricula)
+        public bool BuscaEstacionamientoPorMatricula(string matricula)
         {
             //abro conexion
             conexion.Open();
