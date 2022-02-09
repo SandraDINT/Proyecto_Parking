@@ -134,36 +134,7 @@ namespace Proyecto_Parking.Servicios
             //cierra conexión
             conexion.Close();
         }
-        //select *
-        public ObservableCollection<Estacionamiento> RecorreEstacionamientos()
-        {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "SELECT * FROM estacionamientos";
-            SqliteDataReader lector = comando.ExecuteReader();
-            ObservableCollection<Estacionamiento> estacionamiento = new ObservableCollection<Estacionamiento>();
-            if (lector.HasRows)
-            {
-                while (lector.Read())
-                {
-                    long idEstacionamiento = (long)lector["id_estacionamiento"];
-                    long idVehiculo = (long)lector["id_vehiculo"];
-                    string matricula = (string)lector["matricula"];
-                    string entrada = (string)lector["entrada"];
-                    string salida = (string)lector["salida"];
-                    double importe = (double)lector["importe"];
-                    string tipo = (string)lector["tipo"];
-                    //añado estacionamiento a la lista
-                    estacionamiento.Add(new Estacionamiento((int)idEstacionamiento,
-                        (int)idVehiculo, matricula, entrada, salida, importe, tipo));
-                }
-            }
-            //cierro conexion
-            conexion.Close();
-            return estacionamiento;
-        }
+
 
         //cuenta estacionamientos
         public int CuentaEstacionamientosNoFinalizadosCoche()
@@ -173,7 +144,7 @@ namespace Proyecto_Parking.Servicios
             SqliteCommand comando = conexion.CreateCommand();
             int resultado = 0;
             //Consulta de selección
-            comando.CommandText = "SELECT COUNT(*) AS resultado FROM estacionamientos WHERE salida LIKE '' AND tipo LIKE 'Coche'";
+            comando.CommandText = "SELECT COUNT(*) AS resultado FROM estacionamientos WHERE importe = 0 AND tipo LIKE 'Coche'";
             SqliteDataReader lector = comando.ExecuteReader();
             if (lector.HasRows)
             {
@@ -191,7 +162,7 @@ namespace Proyecto_Parking.Servicios
             SqliteCommand comando = conexion.CreateCommand();
             int resultado = 0;
             //Consulta de selección
-            comando.CommandText = "SELECT COUNT(*) AS resultado FROM estacionamientos WHERE salida LIKE '' AND tipo LIKE 'Motocicleta'";
+            comando.CommandText = "SELECT COUNT(*) AS resultado FROM estacionamientos WHERE importe = 0 AND tipo LIKE 'Motocicleta'";
             SqliteDataReader lector = comando.ExecuteReader();
             if (lector.HasRows)
             {
