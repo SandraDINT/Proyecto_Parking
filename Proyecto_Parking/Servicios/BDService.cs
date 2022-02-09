@@ -140,7 +140,6 @@ namespace Proyecto_Parking.Servicios
             conexion.Close();
         }
 
-
         //cuenta estacionamientos
         public int CuentaEstacionamientosNoFinalizadosCoche()
         {
