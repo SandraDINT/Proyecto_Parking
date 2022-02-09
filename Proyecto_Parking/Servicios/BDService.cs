@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Proyecto_Parking.Servicios
 {
@@ -140,6 +141,9 @@ namespace Proyecto_Parking.Servicios
             comando.Parameters.Add("@salida", SqliteType.Text);
             comando.Parameters.Add("@importe", SqliteType.Real);
             comando.Parameters.Add("@tipo", SqliteType.Text);
+
+            MessageBox.Show(estacionamiento.Entrada);
+
             //asigno valores
             if (estacionamiento.IdVehiculo == -1)
                 comando.Parameters["@id_vehiculo"].Value = DBNull.Value;
@@ -151,12 +155,12 @@ namespace Proyecto_Parking.Servicios
             comando.Parameters["@salida"].Value = "";
             comando.Parameters["@importe"].Value = 0;
             comando.Parameters["@tipo"].Value = estacionamiento.Tipo;
+
             //ejecuta comando
             comando.ExecuteNonQuery();
             //cierra conexión
             conexion.Close();
         }
-
 
         //cuenta estacionamientos
         public int CuentaEstacionamientosNoFinalizadosCoche()
@@ -171,7 +175,7 @@ namespace Proyecto_Parking.Servicios
             if (lector.HasRows)
             {
                 lector.Read();
-                resultado = (int)lector["resultado"];
+                resultado = Convert.ToInt32(lector["resultado"]); //daba error al castear así -> (int)lector["resultado]
             }
             //cierro conexion
             conexion.Close();
@@ -189,13 +193,12 @@ namespace Proyecto_Parking.Servicios
             if (lector.HasRows)
             {
                 lector.Read();
-                resultado = (int)lector["resultado"];
+                resultado = Convert.ToInt32(lector["resultado"]);
             }
             //cierro conexion
             conexion.Close();
             return resultado;
         }
-
 
         //select estacionamientos no finalizados
         public ObservableCollection<Estacionamiento> RecorreEstacionamientosNoFinalizados()
@@ -233,7 +236,7 @@ namespace Proyecto_Parking.Servicios
         #region TABLA VEHICULOS
 
         //select *
-        public ObservableCollection<Vehiculo> RecorreVehiculos()
+        public ObservableCollection<Vehiculo> RecorreVehiculos() 
         {
             //abro conexion
             conexion.Open();
@@ -261,7 +264,7 @@ namespace Proyecto_Parking.Servicios
             return vehiculos;
         }
         //
-        public bool BuscaVehiculosPorIdCliente(Cliente cliente)
+        public bool BuscaVehiculosPorIdCliente(Cliente cliente) 
         {
             //abro conexion
             conexion.Open();
@@ -282,7 +285,7 @@ namespace Proyecto_Parking.Servicios
             return encuentra;
         }
 
-        public bool BuscaVehiculosPorMatricula(String matricula)
+        public bool BuscaVehiculosPorMatricula(String matricula) 
         {
             //abro conexion
             conexion.Open();
