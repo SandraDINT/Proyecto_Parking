@@ -24,7 +24,7 @@ namespace Proyecto_Parking.ViewModel
         private readonly ServicioDialogos dialogosService;
         private readonly ServicioAzure azureService;
 
-        private static string filtrosRuta = "JPG (*.jpg)|*.jpg|PNG (*.png*)|*.png*";
+        private static readonly string filtrosRuta = "JPG (*.jpg)|*.jpg|PNG (*.png*)|*.png*";
         public RelayCommand AbrirExaminarCommand { get; }
         public RelayCommand AbrirAceptarCommand { get; }
 
@@ -117,8 +117,6 @@ namespace Proyecto_Parking.ViewModel
             string rutaImagen = dialogosService.AbrirArchivoDialogo(filtrosRuta);
             rutaAzure = azureService.GuardarImagen(rutaImagen);
             Foto = rutaAzure;
-
-            
         }
 
         private void EntrarAlParking()
@@ -134,11 +132,6 @@ namespace Proyecto_Parking.ViewModel
                 MessageBox.Show("Abonado");
 
                 _listaEstacionamientos = bdService.RecorreEstacionamientosNoFinalizados();
-
-                if (_listaEstacionamientos.Contains(EstacionamientoActual))
-                {
-
-                }
             }
         }
     }

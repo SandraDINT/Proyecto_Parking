@@ -141,7 +141,6 @@ namespace Proyecto_Parking.Servicios
             comando.Parameters.Add("@salida", SqliteType.Text);
             comando.Parameters.Add("@importe", SqliteType.Real);
             comando.Parameters.Add("@tipo", SqliteType.Text);
-
             MessageBox.Show(estacionamiento.Entrada);
 
             //asigno valores
@@ -262,6 +261,26 @@ namespace Proyecto_Parking.Servicios
             //cierro conexion
             conexion.Close();
             return vehiculos;
+        }
+        public int BuscaIDVehiculoPorMatricula(String matricula)
+        {
+            //abro conexion
+            conexion.Open();
+            SqliteCommand comando = conexion.CreateCommand();
+            //Consulta de selección
+            comando.CommandText = "SELECT * FROM vehiculos WHERE matricula LIKE @matricula";
+            comando.Parameters.Add("@matricula", SqliteType.Text);
+            comando.Parameters["@matricula"].Value = matricula;
+            SqliteDataReader lector = comando.ExecuteReader();
+            int id = -1;
+            if (lector.HasRows)
+            {
+                lector.Read();
+                id = Convert.ToInt32((long)lector["id_vehiculo"]);
+            }
+            //cierro conexion
+            conexion.Close();
+            return id;
         }
         //
         public bool BuscaVehiculosPorIdCliente(Cliente cliente) 
