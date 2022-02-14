@@ -104,7 +104,7 @@ namespace Proyecto_Parking.Servicios
             return clienteBuscado;
         }
 
-        public bool BuscaEstacionamientoPorMatricula(String matricula)
+        public bool BuscaEstacionamientoPorMatricula(string matricula)
         {
             //abro conexion
             conexion.Open();
@@ -160,7 +160,6 @@ namespace Proyecto_Parking.Servicios
             //cierra conexión
             conexion.Close();
         }
-
         //cuenta estacionamientos
         public int CuentaEstacionamientosNoFinalizadosCoche()
         {
@@ -198,7 +197,6 @@ namespace Proyecto_Parking.Servicios
             conexion.Close();
             return resultado;
         }
-
         //select estacionamientos no finalizados
         public ObservableCollection<Estacionamiento> RecorreEstacionamientosNoFinalizados()
         {
