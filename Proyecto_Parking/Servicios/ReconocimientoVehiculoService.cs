@@ -9,8 +9,18 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Parking.Servicios
 {
+    /// <summary>
+    /// El servicio ReconocimientoVehiculoService es usado para reconocer el vehiculo, atravez de una IA de azure.
+    /// La IA de azure esta entrenada para reconocer Motocicletas o Coches, pero si se le entrenaa para que reconozca otro vehiculo tambien funcionaria
+    /// devolviendote el nombre asignado en azure
+    /// </summary>
     class ReconocimientoVehiculoService
     {
+        /// <summary>
+        /// El metodo reconocerVehiculo sirve para reconocer un vehiculo atraves de una imagen.
+        /// </summary>
+        /// <param name="url">El parametro url es el que tendra la imagen tienen que estar en un servido accesible publicamente</param>
+        /// <returns>Este metodo devuelve un String indicando el tipo de vehiculo</returns>
         public string reconocerVehiculo(string url)
         {
 

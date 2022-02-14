@@ -9,12 +9,23 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Parking.Servicios
 {
+    /// <summary>
+    /// La clase LeerMatriculaService nos ayudara con el reconocimiento del vehiculo
+    /// con una IA para leer texto
+    /// </summary>
     class LeerMatriculaService
     {
+
+        /// <summary>
+        /// El metodo LeerMatricula nos ayudara a reconocer las letras de la matricula del vehiculo
+        /// </summary>
+        /// <param name="url">Este parametro nos sirve para decirle la imagen del vehiculo que necesitemos</param>
+        /// <param name="tipoVehiculo">Este parametro es muy importante ya que le tendremos que indicar si una Motocicleta y que asi lea las dos lineas de la matricula, si no es una Motocicleta leera la primera linea de la matricula</param>
+        /// <returns>Nos retorna una cadena la cual contiene la matricula reconocida</returns>
         public string LeerMatricula(string url, string tipoVehiculo)
         {
 
-            //////////////////////////PRIMERA PARTE DEL SERVICIO ENVIA FOTO DEL VEHICULO
+            //Envio la foto del vehiculo con un POST
 
             var cliente = new RestClient(Properties.Settings.Default.EndpointCoputerVision + "/vision/v3.2/read/analyze/");
 
@@ -29,8 +40,7 @@ namespace Proyecto_Parking.Servicios
             Thread.Sleep(1500);
 
 
-
-            //////////////////////////SEGUNDA PARTE DEL SERVICIO SOLICITAR RESULTADOS
+            //Solicitamos los resultados con un GET
 
             var clienteGET = new RestClient(resultadoOCR);
 
@@ -40,13 +50,13 @@ namespace Proyecto_Parking.Servicios
 
             JToken jt = JToken.Parse(clienteGET.Execute(requestGET).Content).SelectToken("analyzeResult").SelectToken("readResults").First.SelectToken("lines").First.SelectToken("text");
 
-            string matricul = jt.ToString();
+            string matricula = jt.ToString();
             if (tipoVehiculo.Equals("Motocicleta"))
             {
                 jt = JToken.Parse(clienteGET.Execute(requestGET).Content).SelectToken("analyzeResult").SelectToken("readResults").First.SelectToken("lines")[1].SelectToken("text");
-                matricul += jt.ToString();
+                matricula += jt.ToString();
             }
-            return matricul;
+            return matricula;
         }
     }
 }
