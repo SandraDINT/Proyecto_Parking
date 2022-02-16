@@ -13,8 +13,12 @@ using System.Windows;
 
 namespace Proyecto_Parking.ViewModel
 {
+    
     class MainWindowVM : ObservableObject
     {
+        private const string COCHE = "Coche";
+        private const string MOTO = "Motocicleta";
+
         private const int TOTAL_PLAZAS_COCHE = 50;
         private const int TOTAL_PLAZAS_MOTO = 50;
 
@@ -92,6 +96,7 @@ namespace Proyecto_Parking.ViewModel
             _plazasLibresCoche = SacarPlazasLibresCoche();
             _plazasLibresMoto = SacarPlazasLibresMoto();
             _listaEstacionamientos = new ObservableCollection<Estacionamiento>();
+            EstacionamientoActual = new Estacionamiento();
 
             //Comandos
             AbrirExaminarCommand = new RelayCommand(AbrirExaminar);
@@ -126,21 +131,70 @@ namespace Proyecto_Parking.ViewModel
             Foto = rutaAzure;
         }
 
-        private void EntrarAlParking()
+        private void EntrarAlParking() 
         {
-            string tipo = reconocimientoService.ReconocerVehiculo(rutaAzure);
+            Estacionamiento estacionamiento = new Estacionamiento();
+            string tipo = reconocimientoService.reconocerVehiculo(rutaAzure);
             string matricula = matriculaService.LeerMatricula(rutaAzure, tipo);
 
-            EstacionamientoActual.Matricula = matricula;
-            EstacionamientoActual.Tipo = tipo;
-
-            if (!bdService.BuscaEstacionamientoPorMatricula(matricula))
+            if(tipo == COCHE)
             {
-                if (bdService.BuscaVehiculosPorMatricula(matricula))
+                InsertaCoche(matricula, tipo, estacionamiento);
+                PlazasLibresCoche--;
+            }
+            else if(tipo == MOTO)
+            {
+                InsertaMotocicleta(matricula, tipo, estacionamiento);
+                PlazasLibresMoto--;
+            }
+        }
+
+        private void InsertaCoche(string matricula, string tipo, Estacionamiento estacionamiento)
+        {
+            if (!bdService.BuscaEstacionamientoPorMatricula(matricula) &&
+                SacarPlazasLibresCoche() > 0)
+            {
+                estacionamiento.Matricula = matricula;
+                estacionamiento.Tipo = tipo;
+                estacionamiento.Entrada = DateTime.Now.ToString();
+                if (!bdService.BuscaVehiculosPorMatricula(matricula))
                 {
-                    MessageBox.Show("Abonado");
+                    estacionamiento.IdVehiculo = -1;
+                    bdService.InsertaEstacionamiento(estacionamiento);
+                    MessageBox.Show("Estacionamiento insertado con éxito");
                 }
-                IdVehiculo = -1;
+                else
+                {
+                    IdVehiculo = bdService.BuscaIDVehiculoPorMatricula(matricula);
+                    estacionamiento.IdVehiculo = IdVehiculo;
+                    bdService.InsertaEstacionamiento(estacionamiento);
+                    MessageBox.Show("Estacionamiento insertado con éxito");
+                }
+            }
+            else
+                MessageBox.Show("Estacionamiento ya activo, imposible crear");
+        }
+        private void InsertaMotocicleta(string matricula, string tipo, Estacionamiento estacionamiento)
+        {
+            if (!bdService.BuscaEstacionamientoPorMatricula(matricula) &&
+                SacarPlazasLibresMoto() > 0)
+            {
+                estacionamiento.Matricula = matricula;
+                estacionamiento.Tipo = tipo;
+                estacionamiento.Entrada = DateTime.Now.ToString();
+                if (!bdService.BuscaVehiculosPorMatricula(matricula))
+                {
+                    estacionamiento.IdVehiculo = -1;
+                    bdService.InsertaEstacionamiento(estacionamiento);
+                    MessageBox.Show("Estacionamiento insertado con éxito");
+                }
+                else
+                {
+                    IdVehiculo = bdService.BuscaIDVehiculoPorMatricula(matricula);
+                    estacionamiento.IdVehiculo = IdVehiculo;
+                    bdService.InsertaEstacionamiento(estacionamiento);
+                    MessageBox.Show("Estacionamiento insertado con éxito");
+                }
             }
             else
                 MessageBox.Show("Estacionamiento ya activo, imposible crear");
