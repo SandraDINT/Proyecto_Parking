@@ -11,13 +11,19 @@ using System.Windows;
 
 namespace Proyecto_Parking.Servicios
 {
+    /// <summary>
+    /// La clase BDService se encargará de conectar con la base de datos parking para recoger e insertar los datos solicitados.
+    /// </summary>
     class BDService
     {
         //Si no existe, lo creará
         public readonly SqliteConnection conexion = new SqliteConnection("Data Source = C:/bd_dint/parking.db");
 
         #region TABLA CLIENTES
-        //select *
+        /// <summary>
+        /// El método RecorreClientes busca todos los registros que hay en la tabla clientes y los inserta en una lista.
+        /// </summary>
+        /// <returns>Devuelve una lista con los clientes.</returns>
         public ObservableCollection<Cliente> RecorreClientes()
         {
             ObservableCollection<Cliente> clientes = new ObservableCollection<Cliente>();
@@ -58,6 +64,11 @@ namespace Proyecto_Parking.Servicios
             }
             return clientes;
         }
+        /// <summary>
+        /// El método BuscaClientePorId busca el cliente según una id proporcionada.
+        /// </summary>
+        /// <param name="idBuscar">Este parámetro es la id del cliente a buscar</param>
+        /// <returns>Devuelve un objeto cliente con el cliente si lo encuentra, y si no, devuelve null</returns>
         public Cliente BuscaClientePorId(int idBuscar)
         {
             Cliente clienteBuscado = null;
@@ -97,7 +108,11 @@ namespace Proyecto_Parking.Servicios
             }
             return clienteBuscado;
         }
-        //select one
+        /// <summary>
+        /// Este método busca cliente por documento proporcionado
+        /// </summary>
+        /// <param name="documentoBuscar">Este parámetro es el documento del cliente a buscar</param>
+        /// <returns>Devuelve un objeto cliente con el cliente si encuentra coincidencia, y si no, devuelve null</returns>
         public Cliente BuscaClientePorDocumento(string documentoBuscar)
         {
             Cliente clienteBuscado = null;
@@ -139,6 +154,11 @@ namespace Proyecto_Parking.Servicios
             return clienteBuscado;
         }
 
+        /// <summary>
+        /// Este método busca estacionamiento por matricula proporcionada
+        /// </summary>
+        /// <param name="matricula">Este parámetro es la matricula del coche estacionado a buscar</param>
+        /// <returns>Devuelve true si encuentra coincidencia, false si no</returns>
         public bool BuscaEstacionamientoPorMatricula(string matricula)
         {
             bool encuentra = false;
@@ -174,7 +194,10 @@ namespace Proyecto_Parking.Servicios
         #endregion
 
         #region TABLA ESTACIONAMIENTOS
-        //insert
+        /// <summary>
+        /// Este método busca estacionamiento por matricula proporcionada
+        /// </summary>
+        /// <param name="estacionamiento">Este parámetro es el estacionamiento a insertar</param>
         public void InsertaEstacionamiento(Estacionamiento estacionamiento)
         {
             try
@@ -215,7 +238,10 @@ namespace Proyecto_Parking.Servicios
                 Console.WriteLine("Error desconocido");
             }
         }
-        //cuenta estacionamientos
+        /// <summary>
+        /// Este método cuenta los estacionamientos no finalizados de los vehículos que sean de tipo coche
+        /// </summary>
+        /// <returns>Devuelve un entero con la cantidad de estacionamientos no finalizados</returns>
         public int CuentaEstacionamientosNoFinalizadosCoche()
         {
             int resultado = -1;
@@ -245,6 +271,10 @@ namespace Proyecto_Parking.Servicios
             }
             return resultado;
         }
+        /// <summary>
+        /// Este método cuenta los estacionamientos no finalizados de los vehículos que sean de tipo motocicleta
+        /// </summary>
+        /// <returns>Devuelve un entero con la cantidad de estacionamientos no finalizados</returns>
         public int CuentaEstacionamientosNoFinalizadosMoto()
         {
             int resultado = -1;
@@ -274,7 +304,10 @@ namespace Proyecto_Parking.Servicios
             }
             return resultado;
         }
-        //select estacionamientos no finalizados
+        /// <summary>
+        /// Este método busca estacionamientos no finalizados y los recoge en una lista
+        /// </summary>
+        /// <returns>Devuelve una lista de Estacionamientos con los estacionamientos no finalizados</returns>
         public ObservableCollection<Estacionamiento> RecorreEstacionamientosNoFinalizados()
         {
             ObservableCollection<Estacionamiento> estacionamiento = new ObservableCollection<Estacionamiento>();
@@ -320,7 +353,10 @@ namespace Proyecto_Parking.Servicios
 
         #region TABLA VEHICULOS
 
-        //select *
+        /// <summary>
+        /// Este método recorre los vehículos de la tabla vehículos y los recoge en una lista
+        /// </summary>
+        /// <returns>Devuelve una lista con los vehículos registrados</returns>
         public ObservableCollection<Vehiculo> RecorreVehiculos()
         {
             ObservableCollection<Vehiculo> vehiculos = new ObservableCollection<Vehiculo>();
@@ -359,6 +395,11 @@ namespace Proyecto_Parking.Servicios
             }
             return vehiculos;
         }
+        /// <summary>
+        /// Este método busca la id del vehículo según la matrícula proporcionada
+        /// </summary>
+        /// <param name="matricula">Este parámetro es la matrícula del vehiculo a buscar</param>
+        /// <returns>Devuelve la id del vehículo si hay coincidencia, si no, devuelve -1</returns>
         public int BuscaIDVehiculoPorMatricula(String matricula)
         {
             int id = -1;
@@ -390,7 +431,11 @@ namespace Proyecto_Parking.Servicios
             }
             return id;
         }
-        //
+        /// <summary>
+        /// Este método busca vehículos por la id del cliente
+        /// </summary>
+        /// <param name="cliente">Este parámetro es el cliente con el cual buscaremos vehiculos suyos registrados</param>
+        /// <returns>Si ese cliente tiene vehículos dedolverá true, si no, false</returns>
         public bool BuscaVehiculosPorIdCliente(Cliente cliente)
         {
             bool encuentra = false;
@@ -421,7 +466,11 @@ namespace Proyecto_Parking.Servicios
             }
             return encuentra;
         }
-
+        /// <summary>
+        /// Este método busca vehículos con una matrícula proporcionada
+        /// </summary>
+        /// <param name="matricula">Este parámetro es la matrícula con la que buscaremos el vehículo</param>
+        /// <returns>Si encuentra un vehículo devuelve true, si no, false</returns>
         public bool BuscaVehiculosPorMatricula(String matricula)
         {
             bool encuentra = false;
