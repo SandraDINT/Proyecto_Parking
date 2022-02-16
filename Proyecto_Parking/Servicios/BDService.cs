@@ -197,7 +197,7 @@ namespace Proyecto_Parking.Servicios
                     comando.Parameters["@id_vehiculo"].Value = estacionamiento.IdVehiculo;
 
                 comando.Parameters["@matricula"].Value = estacionamiento.Matricula;
-                comando.Parameters["@entrada"].Value = estacionamiento.Entrada;
+                comando.Parameters["@entrada"].Value = DateTime.Now.ToString(); //pruebas
                 comando.Parameters["@salida"].Value = "";
                 comando.Parameters["@importe"].Value = 0;
                 comando.Parameters["@tipo"].Value = estacionamiento.Tipo;
