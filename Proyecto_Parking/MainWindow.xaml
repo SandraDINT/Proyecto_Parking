@@ -14,7 +14,7 @@
                 DockPanel.Dock="Top"
                 Width="100"
                 Margin="10" 
-                Command="{Binding Path=AbrirExaminarCommand}"/>
+                Command="{Binding Path=AbrirExaminarCommand}" />
         <Image Width="350"
                DockPanel.Dock="Left"
                Margin="10"
@@ -52,6 +52,7 @@
         <Button DockPanel.Dock="Bottom"
                 Content="ENTRAR AL PARKING"
                 HorizontalAlignment="Center"
-                Margin="5"/>
+                Margin="5"
+                Command="{Binding Path=AbrirAceptarCommand}"/>
     </DockPanel>
 </Window>
