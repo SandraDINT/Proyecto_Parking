@@ -20,17 +20,61 @@ namespace Proyecto_Parking.Servicios
         //select *
         public ObservableCollection<Cliente> RecorreClientes()
         {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "SELECT * FROM clientes";
-            SqliteDataReader lector = comando.ExecuteReader();
             ObservableCollection<Cliente> clientes = new ObservableCollection<Cliente>();
-            if (lector.HasRows)
+            try
             {
-                while (lector.Read())
+                //abro conexion
+                conexion.Open();
+                SqliteCommand comando = conexion.CreateCommand();
+                //Consulta de selección
+                comando.CommandText = "SELECT * FROM clientes";
+                SqliteDataReader lector = comando.ExecuteReader();
+
+                if (lector.HasRows)
                 {
+                    while (lector.Read())
+                    {
+                        long id = (long)lector["id_cliente"];
+                        string nombre = (string)lector["nombre"];
+                        string documento = (string)lector["documento"];
+                        string foto = (string)lector["foto"];
+                        long edad = (long)lector["edad"];
+                        string genero = (string)lector["genero"];
+                        string telefono = (string)lector["telefono"];
+                        //añado cliente a la lista
+                        clientes.Add(new Cliente((int)id, nombre, documento, foto, (int)edad, genero, telefono));
+                    }
+                }
+                //cierro conexion
+                conexion.Close();
+            }
+            catch (SqliteException)
+            {
+                Console.WriteLine("No se ha podido conectar");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error desconocido");
+            }
+            return clientes;
+        }
+        public Cliente BuscaClientePorId(int idBuscar)
+        {
+            Cliente clienteBuscado = null;
+            try
+            {
+                //abro conexion
+                conexion.Open();
+                SqliteCommand comando = conexion.CreateCommand();
+                //Consulta de selección
+                comando.CommandText = "SELECT * FROM clientes WHERE id_cliente LIKE @idBuscar";
+                comando.Parameters.Add("@idBuscar", SqliteType.Text);
+                comando.Parameters["@idBuscar"].Value = idBuscar;
+                SqliteDataReader lector = comando.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    //Lee el resultado
+                    lector.Read();
                     long id = (long)lector["id_cliente"];
                     string nombre = (string)lector["nombre"];
                     string documento = (string)lector["documento"];
@@ -38,90 +82,92 @@ namespace Proyecto_Parking.Servicios
                     long edad = (long)lector["edad"];
                     string genero = (string)lector["genero"];
                     string telefono = (string)lector["telefono"];
-                    //añado cliente a la lista
-                    clientes.Add(new Cliente((int)id, nombre, documento, foto, (int)edad, genero, telefono));
+                    clienteBuscado = new Cliente((int)id, nombre, documento, foto, (int)edad, genero, telefono);
                 }
+                //cierro conexion
+                conexion.Close();
             }
-            //cierro conexion
-            conexion.Close();
-            return clientes;
-        }
-        public Cliente BuscaClientePorId(int idBuscar)
-        {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "SELECT * FROM clientes WHERE id_cliente LIKE @idBuscar";
-            comando.Parameters.Add("@idBuscar", SqliteType.Text);
-            comando.Parameters["@idBuscar"].Value = idBuscar;
-            SqliteDataReader lector = comando.ExecuteReader();
-            Cliente clienteBuscado = null;
-            if (lector.HasRows)
+            catch (SqliteException)
             {
-                //Lee el resultado
-                lector.Read();
-                long id = (long)lector["id_cliente"];
-                string nombre = (string)lector["nombre"];
-                string documento = (string)lector["documento"];
-                string foto = (string)lector["foto"];
-                long edad = (long)lector["edad"];
-                string genero = (string)lector["genero"];
-                string telefono = (string)lector["telefono"];
-                clienteBuscado = new Cliente((int)id, nombre, documento, foto, (int)edad, genero, telefono);
+                Console.WriteLine("No se ha podido conectar");
             }
-            //cierro conexion
-            conexion.Close();
+            catch (Exception)
+            {
+                Console.WriteLine("Error desconocido");
+            }
             return clienteBuscado;
         }
         //select one
         public Cliente BuscaClientePorDocumento(string documentoBuscar)
         {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "SELECT * FROM clientes WHERE documento LIKE @documentoBuscar";
-            comando.Parameters.Add("@documentoBuscar", SqliteType.Text);
-            comando.Parameters["@documentoBuscar"].Value = documentoBuscar;
-            SqliteDataReader lector = comando.ExecuteReader();
             Cliente clienteBuscado = null;
-            if (lector.HasRows)
+            try
             {
-                //Lee el resultado
-                lector.Read();
-                long id = (long)lector["id_cliente"];
-                string nombre = (string)lector["nombre"];
-                string documento = (string)lector["documento"];
-                string foto = (string)lector["foto"];
-                long edad = (long)lector["edad"];
-                string genero = (string)lector["genero"];
-                string telefono = (string)lector["telefono"];
-                clienteBuscado = new Cliente((int)id, nombre, documento, foto, (int)edad, genero, telefono);
+                //abro conexion
+                conexion.Open();
+                SqliteCommand comando = conexion.CreateCommand();
+                //Consulta de selección
+                comando.CommandText = "SELECT * FROM clientes WHERE documento LIKE @documentoBuscar";
+                comando.Parameters.Add("@documentoBuscar", SqliteType.Text);
+                comando.Parameters["@documentoBuscar"].Value = documentoBuscar;
+                SqliteDataReader lector = comando.ExecuteReader();
+
+                if (lector.HasRows)
+                {
+                    //Lee el resultado
+                    lector.Read();
+                    long id = (long)lector["id_cliente"];
+                    string nombre = (string)lector["nombre"];
+                    string documento = (string)lector["documento"];
+                    string foto = (string)lector["foto"];
+                    long edad = (long)lector["edad"];
+                    string genero = (string)lector["genero"];
+                    string telefono = (string)lector["telefono"];
+                    clienteBuscado = new Cliente((int)id, nombre, documento, foto, (int)edad, genero, telefono);
+                }
+                //cierro conexion
+                conexion.Close();
             }
-            //cierro conexion
-            conexion.Close();
+            catch (SqliteException)
+            {
+                Console.WriteLine("No se ha podido conectar");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error desconocido");
+            }
             return clienteBuscado;
         }
 
         public bool BuscaEstacionamientoPorMatricula(string matricula)
         {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "SELECT * FROM estacionamientos WHERE matricula LIKE @matricula";
-            comando.Parameters.Add("@matricula", SqliteType.Text);
-            comando.Parameters["@matricula"].Value = matricula;
-
-            SqliteDataReader lector = comando.ExecuteReader();
             bool encuentra = false;
-            if (lector.HasRows)
+            try
             {
-                encuentra = true;
+                //abro conexion
+                conexion.Open();
+                SqliteCommand comando = conexion.CreateCommand();
+                //Consulta de selección
+                comando.CommandText = "SELECT * FROM estacionamientos WHERE matricula LIKE @matricula";
+                comando.Parameters.Add("@matricula", SqliteType.Text);
+                comando.Parameters["@matricula"].Value = matricula;
+
+                SqliteDataReader lector = comando.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    encuentra = true;
+                }
+                //cierro conexion
+                conexion.Close();
             }
-            //cierro conexion
-            conexion.Close();
+            catch (SqliteException)
+            {
+                Console.WriteLine("No se ha podido conectar");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error desconocido");
+            }
             return encuentra;
         }
 
@@ -131,100 +177,142 @@ namespace Proyecto_Parking.Servicios
         //insert
         public void InsertaEstacionamiento(Estacionamiento estacionamiento)
         {
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            comando.CommandText = "INSERT INTO estacionamientos(id_vehiculo, matricula, entrada, salida, importe, tipo)" +
-                " VALUES (@id_vehiculo, @matricula, @entrada, @salida, @importe, @tipo)";
-            comando.Parameters.Add("@id_vehiculo", SqliteType.Integer);
-            comando.Parameters.Add("@matricula", SqliteType.Text);
-            comando.Parameters.Add("@entrada", SqliteType.Text);
-            comando.Parameters.Add("@salida", SqliteType.Text);
-            comando.Parameters.Add("@importe", SqliteType.Real);
-            comando.Parameters.Add("@tipo", SqliteType.Text);
-            MessageBox.Show(estacionamiento.Entrada);
+            try
+            {
+                conexion.Open();
+                SqliteCommand comando = conexion.CreateCommand();
+                comando.CommandText = "INSERT INTO estacionamientos(id_vehiculo, matricula, entrada, salida, importe, tipo)" +
+                    " VALUES (@id_vehiculo, @matricula, @entrada, @salida, @importe, @tipo)";
+                comando.Parameters.Add("@id_vehiculo", SqliteType.Integer);
+                comando.Parameters.Add("@matricula", SqliteType.Text);
+                comando.Parameters.Add("@entrada", SqliteType.Text);
+                comando.Parameters.Add("@salida", SqliteType.Text);
+                comando.Parameters.Add("@importe", SqliteType.Real);
+                comando.Parameters.Add("@tipo", SqliteType.Text);
 
-            //asigno valores
-            if (estacionamiento.IdVehiculo == -1)
-                comando.Parameters["@id_vehiculo"].Value = DBNull.Value;
-            else
-                comando.Parameters["@id_vehiculo"].Value = estacionamiento.IdVehiculo;
+                //asigno valores
+                if (estacionamiento.IdVehiculo == -1)
+                    comando.Parameters["@id_vehiculo"].Value = DBNull.Value;
+                else
+                    comando.Parameters["@id_vehiculo"].Value = estacionamiento.IdVehiculo;
 
-            comando.Parameters["@matricula"].Value = estacionamiento.Matricula;
-            comando.Parameters["@entrada"].Value = estacionamiento.Entrada;
-            comando.Parameters["@salida"].Value = "";
-            comando.Parameters["@importe"].Value = 0;
-            comando.Parameters["@tipo"].Value = estacionamiento.Tipo;
-
-            //ejecuta comando
-            comando.ExecuteNonQuery();
-            //cierra conexión
-            conexion.Close();
+                comando.Parameters["@matricula"].Value = estacionamiento.Matricula;
+                comando.Parameters["@entrada"].Value = estacionamiento.Entrada;
+                comando.Parameters["@salida"].Value = "";
+                comando.Parameters["@importe"].Value = 0;
+                comando.Parameters["@tipo"].Value = estacionamiento.Tipo;
+                //ejecuta comando
+                comando.ExecuteNonQuery();
+                //cierra conexión
+                conexion.Close();
+            }
+            catch (SqliteException)
+            {
+                Console.WriteLine("No se ha podido conectar");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error desconocido");
+            }
         }
         //cuenta estacionamientos
         public int CuentaEstacionamientosNoFinalizadosCoche()
         {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            int resultado = 0;
-            //Consulta de selección
-            comando.CommandText = "SELECT COUNT(*) AS resultado FROM estacionamientos WHERE salida LIKE '' AND tipo LIKE 'Coche'";
-            SqliteDataReader lector = comando.ExecuteReader();
-            if (lector.HasRows)
+            int resultado = -1;
+            try
             {
-                lector.Read();
-                resultado = Convert.ToInt32(lector["resultado"]); //daba error al castear así -> (int)lector["resultado]
+                //abro conexion
+                conexion.Open();
+                SqliteCommand comando = conexion.CreateCommand();
+                //Consulta de selección
+                comando.CommandText = "SELECT COUNT(*) AS resultado FROM estacionamientos WHERE salida LIKE '' AND tipo LIKE 'Coche'";
+                SqliteDataReader lector = comando.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    lector.Read();
+                    resultado = Convert.ToInt32(lector["resultado"]); //daba error al castear así -> (int)lector["resultado]
+                }
+                //cierro conexion
+                conexion.Close();
             }
-            //cierro conexion
-            conexion.Close();
+            catch (SqliteException)
+            {
+                Console.WriteLine("No se ha podido conectar");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error desconocido");
+            }
             return resultado;
         }
         public int CuentaEstacionamientosNoFinalizadosMoto()
         {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            int resultado = 0;
-            //Consulta de selección
-            comando.CommandText = "SELECT COUNT(*) AS resultado FROM estacionamientos WHERE salida LIKE '' AND tipo LIKE 'Motocicleta'";
-            SqliteDataReader lector = comando.ExecuteReader();
-            if (lector.HasRows)
+            int resultado = -1;
+            try
             {
-                lector.Read();
-                resultado = Convert.ToInt32(lector["resultado"]);
+                //abro conexion
+                conexion.Open();
+                SqliteCommand comando = conexion.CreateCommand();
+                //Consulta de selección
+                comando.CommandText = "SELECT COUNT(*) AS resultado FROM estacionamientos WHERE salida LIKE '' AND tipo LIKE 'Motocicleta'";
+                SqliteDataReader lector = comando.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    lector.Read();
+                    resultado = Convert.ToInt32(lector["resultado"]);
+                }
+                //cierro conexion
+                conexion.Close();
             }
-            //cierro conexion
-            conexion.Close();
+            catch (SqliteException)
+            {
+                Console.WriteLine("No se ha podido conectar");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error desconocido");
+            }
             return resultado;
         }
         //select estacionamientos no finalizados
         public ObservableCollection<Estacionamiento> RecorreEstacionamientosNoFinalizados()
         {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "SELECT * FROM estacionamientos WHERE salida LIKE ''";
-            SqliteDataReader lector = comando.ExecuteReader();
             ObservableCollection<Estacionamiento> estacionamiento = new ObservableCollection<Estacionamiento>();
-            if (lector.HasRows)
+            try
             {
-                while (lector.Read())
+                //abro conexion
+                conexion.Open();
+                SqliteCommand comando = conexion.CreateCommand();
+                //Consulta de selección
+                comando.CommandText = "SELECT * FROM estacionamientos WHERE salida LIKE ''";
+                SqliteDataReader lector = comando.ExecuteReader();
+                if (lector.HasRows)
                 {
-                    long idEstacionamiento = (long)lector["id_estacionamiento"];
-                    long idVehiculo = (long)lector["id_vehiculo"];
-                    string matricula = (string)lector["matricula"];
-                    string entrada = (string)lector["entrada"];
-                    string salida = (string)lector["salida"];
-                    double importe = (double)lector["importe"];
-                    string tipo = (string)lector["tipo"];
-                    //añado estacionamiento a la lista
-                    estacionamiento.Add(new Estacionamiento((int)idEstacionamiento,
-                        (int)idVehiculo, matricula, entrada, salida, importe, tipo));
+                    while (lector.Read())
+                    {
+                        long idEstacionamiento = (long)lector["id_estacionamiento"];
+                        long idVehiculo = (lector["id_vehiculo"] == DBNull.Value) ? -1 : (long)lector["id_vehiculo"];
+                        string matricula = (string)lector["matricula"];
+                        string entrada = (string)lector["entrada"];
+                        string salida = (string)lector["salida"];
+                        double importe = (double)lector["importe"];
+                        string tipo = (string)lector["tipo"];
+                        //añado cliente a la lista
+                        estacionamiento.Add(new Estacionamiento((int)idEstacionamiento,
+                            (int)idVehiculo, matricula, entrada, salida, importe, tipo));
+                    }
                 }
+                //cierro conexion
+                conexion.Close();
             }
-            //cierro conexion
-            conexion.Close();
+            catch (SqliteException)
+            {
+                Console.WriteLine("No se ha podido conectar");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error desconocido");
+            }
             return estacionamiento;
         }
 
@@ -233,93 +321,135 @@ namespace Proyecto_Parking.Servicios
         #region TABLA VEHICULOS
 
         //select *
-        public ObservableCollection<Vehiculo> RecorreVehiculos() 
+        public ObservableCollection<Vehiculo> RecorreVehiculos()
         {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "SELECT * FROM vehiculos";
-            SqliteDataReader lector = comando.ExecuteReader();
             ObservableCollection<Vehiculo> vehiculos = new ObservableCollection<Vehiculo>();
-            if (lector.HasRows)
+            try
             {
-                while (lector.Read())
+                //abro conexion
+                conexion.Open();
+                SqliteCommand comando = conexion.CreateCommand();
+                //Consulta de selección
+                comando.CommandText = "SELECT * FROM vehiculos";
+                SqliteDataReader lector = comando.ExecuteReader();
+                if (lector.HasRows)
                 {
-                    long idVehiculo = (long)lector["id_vehiculo"];
-                    long idCliente = (long)lector["id_cliente"];
-                    string matricula = (string)lector["matricula"];
-                    long idMarca = (long)lector["id_marca"];
-                    string modelo = (string)lector["modelo"];
-                    string tipo = (string)lector["tipo"];
-                    //añado cliente a la lista
-                    vehiculos.Add(new Vehiculo((int)idVehiculo, (int)idCliente, matricula, (int)idMarca, modelo, tipo));
+                    while (lector.Read())
+                    {
+                        long idVehiculo = (long)lector["id_vehiculo"];
+                        long idCliente = (long)lector["id_cliente"];
+                        string matricula = (string)lector["matricula"];
+                        long idMarca = (long)lector["id_marca"];
+                        string modelo = (string)lector["modelo"];
+                        string tipo = (string)lector["tipo"];
+                        //añado cliente a la lista
+                        vehiculos.Add(new Vehiculo((int)idVehiculo, (int)idCliente, matricula, (int)idMarca, modelo, tipo));
+                    }
                 }
+                //cierro conexion
+                conexion.Close();
             }
-            //cierro conexion
-            conexion.Close();
+            catch (SqliteException)
+            {
+                Console.WriteLine("No se ha podido conectar");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error desconocido");
+            }
             return vehiculos;
         }
         public int BuscaIDVehiculoPorMatricula(String matricula)
         {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "SELECT * FROM vehiculos WHERE matricula LIKE @matricula";
-            comando.Parameters.Add("@matricula", SqliteType.Text);
-            comando.Parameters["@matricula"].Value = matricula;
-            SqliteDataReader lector = comando.ExecuteReader();
             int id = -1;
-            if (lector.HasRows)
+            try
             {
-                lector.Read();
-                id = Convert.ToInt32((long)lector["id_vehiculo"]);
+                //abro conexion
+                conexion.Open();
+                SqliteCommand comando = conexion.CreateCommand();
+                //Consulta de selección
+                comando.CommandText = "SELECT * FROM vehiculos WHERE matricula LIKE @matricula";
+                comando.Parameters.Add("@matricula", SqliteType.Text);
+                comando.Parameters["@matricula"].Value = matricula;
+                SqliteDataReader lector = comando.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    lector.Read();
+                    id = Convert.ToInt32((long)lector["id_vehiculo"]);
+                }
+                //cierro conexion
+                conexion.Close();
             }
-            //cierro conexion
-            conexion.Close();
+            catch (SqliteException)
+            {
+                Console.WriteLine("No se ha podido conectar");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error desconocido");
+            }
             return id;
         }
         //
-        public bool BuscaVehiculosPorIdCliente(Cliente cliente) 
+        public bool BuscaVehiculosPorIdCliente(Cliente cliente)
         {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "SELECT * FROM vehiculos WHERE id_cliente LIKE @idCliente";
-            comando.Parameters.Add("@idCliente", SqliteType.Integer);
-            comando.Parameters["@idCliente"].Value = cliente.IdCliente;
-
-            SqliteDataReader lector = comando.ExecuteReader();
             bool encuentra = false;
-            if (lector.HasRows)
+            try
             {
-                encuentra = true;
+                //abro conexion
+                conexion.Open();
+                SqliteCommand comando = conexion.CreateCommand();
+                //Consulta de selección
+                comando.CommandText = "SELECT * FROM vehiculos WHERE id_cliente LIKE @idCliente";
+                comando.Parameters.Add("@idCliente", SqliteType.Integer);
+                comando.Parameters["@idCliente"].Value = cliente.IdCliente;
+                SqliteDataReader lector = comando.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    encuentra = true;
+                }
+                //cierro conexion
+                conexion.Close();
             }
-            //cierro conexion
-            conexion.Close();
+            catch (SqliteException)
+            {
+                Console.WriteLine("No se ha podido conectar");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error desconocido");
+            }
             return encuentra;
         }
 
-        public bool BuscaVehiculosPorMatricula(String matricula) 
+        public bool BuscaVehiculosPorMatricula(String matricula)
         {
-            //abro conexion
-            conexion.Open();
-            SqliteCommand comando = conexion.CreateCommand();
-            //Consulta de selección
-            comando.CommandText = "SELECT * FROM vehiculos WHERE matricula LIKE @matricula";
-            comando.Parameters.Add("@matricula", SqliteType.Text);
-            comando.Parameters["@matricula"].Value = matricula;
-
-            SqliteDataReader lector = comando.ExecuteReader();
             bool encuentra = false;
-            if (lector.HasRows)
+            try
             {
-                encuentra = true;
+                //abro conexion
+                conexion.Open();
+                SqliteCommand comando = conexion.CreateCommand();
+                //Consulta de selección
+                comando.CommandText = "SELECT * FROM vehiculos WHERE matricula LIKE @matricula";
+                comando.Parameters.Add("@matricula", SqliteType.Text);
+                comando.Parameters["@matricula"].Value = matricula;
+                SqliteDataReader lector = comando.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    encuentra = true;
+                }
+                //cierro conexion
+                conexion.Close();
             }
-            //cierro conexion
-            conexion.Close();
+            catch (SqliteException)
+            {
+                Console.WriteLine("No se ha podido conectar");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error desconocido");
+            }
             return encuentra;
         }
         #endregion
