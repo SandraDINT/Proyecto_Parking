@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Proyecto_Parking"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Parking"
         Height="450"
         Width="800"
         Icon="Assets/parking_ico.ico">
@@ -55,9 +55,9 @@
         <syncfusion:ButtonAdv DockPanel.Dock="Bottom"
                               Label="ENTRAR"
                               HorizontalAlignment="Center"
-                              Margin="-10,5,5,5"
+                              Margin="37,5,5,5"
                               Command="{Binding Path=AbrirAceptarCommand}"
                               SmallIcon="Assets/car.png"
-                              Width="148" />
+                              Width="101" />
     </DockPanel>
 </Window>
