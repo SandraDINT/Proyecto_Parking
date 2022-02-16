@@ -21,7 +21,7 @@ namespace Proyecto_Parking.Servicios
         /// </summary>
         /// <param name="url">El parametro url es el que tendra la imagen tienen que estar en un servido accesible publicamente</param>
         /// <returns>Este metodo devuelve un String indicando el tipo de vehiculo</returns>
-        public string reconocerVehiculo(string url)
+        public string ReconocerVehiculo(string url)
         {
 
             var cliente = new RestClient(Properties.Settings.Default.EnlaceIAReconocimientoVehiculo + "/customvision/v3.0/Prediction/" + Properties.Settings.Default.ProjectIAReconocimientoVehiculo_id + "/classify/iterations/" + Properties.Settings.Default.PublishedIAReconocimientoVehiculo_name + "/url");
