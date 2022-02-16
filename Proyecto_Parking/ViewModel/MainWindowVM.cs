@@ -134,7 +134,7 @@ namespace Proyecto_Parking.ViewModel
         private void EntrarAlParking() 
         {
             Estacionamiento estacionamiento = new Estacionamiento();
-            string tipo = reconocimientoService.reconocerVehiculo(rutaAzure);
+            string tipo = reconocimientoService.ReconocerVehiculo(rutaAzure);
             string matricula = matriculaService.LeerMatricula(rutaAzure, tipo);
 
             if(tipo == COCHE)
