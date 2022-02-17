@@ -4,21 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proyecto_Parking"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Parking"
         Height="450"
-        Width="800">
+        Width="800"
+        Icon="Assets/parking_ico.ico">
     <DockPanel LastChildFill="False"
                Background="#FF93CDFF">
-        <Button Content="Examinar"
-                DockPanel.Dock="Top"
-                Width="100"
-                Margin="10" 
-                Command="{Binding Path=AbrirExaminarCommand}" />
+        <syncfusion:ButtonAdv Label="Examinar"
+                              DockPanel.Dock="Top"
+                              Width="100"
+                              Margin="10"
+                              Command="{Binding Path=AbrirExaminarCommand}"
+                              SmallIcon="Assets/lupa_examinar.png" />
         <Image Width="350"
                DockPanel.Dock="Left"
                Margin="10"
-               Source="{Binding Path=Foto}"/>
+               Source="{Binding Path=Foto}" />
         <StackPanel Orientation="Vertical"
                     DockPanel.Dock="Right"
                     VerticalAlignment="Top">
@@ -26,13 +29,13 @@
                         Margin="10"
                         Background="#FF69B9FF">
                 <TextBlock Text="Plazas libres de coche"
-                           FontSize="26" 
-                           Margin="5"/>
+                           FontSize="26"
+                           Margin="5" />
                 <TextBlock Text="{Binding Path=PlazasLibresCoche}"
                            Margin="5"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           FontSize="25"/>
+                           FontSize="25" />
             </StackPanel>
             <StackPanel DockPanel.Dock="Right"
                         VerticalAlignment="Top"
@@ -40,8 +43,8 @@
                         Margin="10"
                         Background="#FF69B9FF">
                 <TextBlock Text="Plazas libres de moto"
-                           FontSize="26" 
-                           Margin="5"/>
+                           FontSize="26"
+                           Margin="5" />
                 <TextBlock Text="{Binding Path=PlazasLibresMoto}"
                            Margin="5"
                            HorizontalAlignment="Center"
@@ -49,10 +52,12 @@
                            FontSize="25" />
             </StackPanel>
         </StackPanel>
-        <Button DockPanel.Dock="Bottom"
-                Content="ENTRAR AL PARKING"
-                HorizontalAlignment="Center"
-                Margin="5"
-                Command="{Binding Path=AbrirAceptarCommand}"/>
+        <syncfusion:ButtonAdv DockPanel.Dock="Bottom"
+                              Label="ENTRAR"
+                              HorizontalAlignment="Center"
+                              Margin="37,5,5,5"
+                              Command="{Binding Path=AbrirAceptarCommand}"
+                              SmallIcon="Assets/car.png"
+                              Width="101" />
     </DockPanel>
 </Window>
