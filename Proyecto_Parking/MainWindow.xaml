@@ -12,6 +12,7 @@
         ResizeMode="NoResize"
         Icon="Assets/parking_ico.ico">
     <Window.Resources>
+        <local:BotonConverter x:Key="ConverterBoton"></local:BotonConverter>
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="FontWeight"
                     Value="Bold"></Setter>
@@ -28,6 +29,7 @@
                               FontWeight="Bold" />
         <syncfusion:ButtonAdv DockPanel.Dock="Bottom"
                               Label="ENTRAR"
+                              IsEnabled="{Binding Path=Foto, Converter={StaticResource ConverterBoton}}"
                               HorizontalAlignment="Center"
                               Margin="37,5,5,5"
                               Command="{Binding Path=AbrirAceptarCommand}"

@@ -97,15 +97,12 @@ namespace Proyecto_Parking.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:/bd_dint/parking.db")]
         public string EnlaceBD {
             get {
                 return ((string)(this["EnlaceBD"]));
-            }
-            set {
-                this["EnlaceBD"] = value;
             }
         }
     }
