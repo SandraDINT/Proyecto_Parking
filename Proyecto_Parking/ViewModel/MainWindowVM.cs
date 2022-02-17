@@ -179,14 +179,13 @@ namespace Proyecto_Parking.ViewModel
                 if (!bdService.BuscaVehiculosPorMatricula(matricula))
                 {
                     estacionamiento.IdVehiculo = -1;
-                    bdService.InsertaEstacionamiento(estacionamiento);
                 }
                 else
                 {
                     IdVehiculo = bdService.BuscaIDVehiculoPorMatricula(matricula);
                     estacionamiento.IdVehiculo = IdVehiculo;
-                    bdService.InsertaEstacionamiento(estacionamiento);
                 }
+                bdService.InsertaEstacionamiento(estacionamiento);
             }
             else
                 dialogosService.MensajeError("ERROR", "Estacionamiento ya activo, imposible crear");
