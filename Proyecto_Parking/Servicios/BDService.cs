@@ -17,7 +17,7 @@ namespace Proyecto_Parking.Servicios
     class BDService
     {
         //Si no existe, lo creará
-        public readonly SqliteConnection conexion = new SqliteConnection("Data Source = C:/bd_dint/parking.db");
+        public readonly SqliteConnection conexion = new SqliteConnection("Data Source = " + Properties.Settings.Default.EnlaceBD);
 
         #region TABLA CLIENTES
         /// <summary>
