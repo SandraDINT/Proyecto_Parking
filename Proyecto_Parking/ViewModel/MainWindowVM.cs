@@ -126,9 +126,16 @@ namespace Proyecto_Parking.ViewModel
 
         private void AbrirExaminar()
         {
-            string rutaImagen = dialogosService.AbrirArchivoDialogo(filtrosRuta);
-            rutaAzure = azureService.GuardarImagen(rutaImagen);
-            Foto = rutaAzure;
+            try
+            {
+                string rutaImagen = dialogosService.AbrirArchivoDialogo(filtrosRuta);
+                rutaAzure = azureService.GuardarImagen(rutaImagen);
+                Foto = rutaAzure;
+            }
+            catch (System.ArgumentException)
+            {
+                dialogosService.MensajeError("ERROR", "No se ha seleccionado una imagen");
+            }
         }
 
         private void EntrarAlParking() 

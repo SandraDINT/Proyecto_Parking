@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Proyecto_Parking.Servicios
 {
@@ -24,6 +25,10 @@ namespace Proyecto_Parking.Servicios
             openFileDialog.ShowDialog();
 
             return openFileDialog.FileName;
+        }
+        public void MensajeError(string tituloMessageBox, string mensajeError)
+        {
+            MessageBox.Show(mensajeError, tituloMessageBox, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
