@@ -150,15 +150,17 @@ namespace Proyecto_Parking.ViewModel
                 Estacionamiento estacionamiento = new Estacionamiento();
                 string tipo = reconocimientoService.ReconocerVehiculo(rutaAzure);
                 string matricula = matriculaService.LeerMatricula(rutaAzure, tipo);
-                if (tipo == "Coche")
+                if (InsertaVehiculo(matricula, tipo, estacionamiento))
                 {
-                    PlazasLibresCoche--;
+                    if (tipo == "Coche")
+                    {
+                        PlazasLibresCoche--;
+                    }
+                    else
+                    {
+                        PlazasLibresMoto--;
+                    }
                 }
-                else
-                {
-                    PlazasLibresMoto--;
-                }
-                InsertaVehiculo(matricula, tipo, estacionamiento);
                 //cuando el vehículo entra en el parking, desaparece su imagen y se pone por defecto no_image_car
                 Foto = "Assets/no_image_car.png";
             }
@@ -168,8 +170,9 @@ namespace Proyecto_Parking.ViewModel
             }
         }
 
-        private void InsertaVehiculo(string matricula, string tipo, Estacionamiento estacionamiento)
+        private bool InsertaVehiculo(string matricula, string tipo, Estacionamiento estacionamiento)
         {
+            bool inserta = false;
             if (!bdService.BuscaEstacionamientoPorMatricula(matricula) &&
                 SacarPlazasLibresCoche() > 0)
             {
@@ -186,9 +189,11 @@ namespace Proyecto_Parking.ViewModel
                     estacionamiento.IdVehiculo = IdVehiculo;
                 }
                 bdService.InsertaEstacionamiento(estacionamiento);
+                inserta = true;
             }
             else
                 dialogosService.MensajeError("ERROR", "Estacionamiento ya activo, imposible crear");
+            return inserta;
         }
     }
 }
