@@ -35,7 +35,7 @@
                               FontSize="20" />
         <StackPanel Orientation="Vertical"
                     DockPanel.Dock="Right"
-                    VerticalAlignment="Top">
+                    VerticalAlignment="Center">
             <StackPanel Height="150"
                         Margin="10"
                         Background="#FF69B9FF">
