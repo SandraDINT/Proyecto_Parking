@@ -12,7 +12,7 @@ using System.Windows;
 namespace Proyecto_Parking.Servicios
 {
     /// <summary>
-    /// La clase BDService se encargará de conectar con la base de datos parking para recoger e insertar los datos solicitados.
+    /// La clase BDService se encargará de conectar con la base de datos parking para recoger, insertar, actualizar o eliminar los datos solicitados.
     /// </summary>
     class BDService
     {
