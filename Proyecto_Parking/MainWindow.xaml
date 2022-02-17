@@ -7,24 +7,35 @@
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         mc:Ignorable="d"
         Title="Parking"
-        Height="450"
+        Height="550"
         Width="800"
+        ResizeMode="NoResize"
         Icon="Assets/parking_ico.ico">
-    <DockPanel LastChildFill="False"
-               Background="#FF93CDFF">
-        <syncfusion:ButtonAdv Label="Examinar"
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontWeight"
+                    Value="Bold"></Setter>
+        </Style>
+    </Window.Resources>
+    <DockPanel Background="#FF93CDFF">
+        <syncfusion:ButtonAdv Label="EXAMINAR"
                               DockPanel.Dock="Top"
-                              Width="100"
+                              Width="200"
                               Margin="10"
                               Command="{Binding Path=AbrirExaminarCommand}"
-                              SmallIcon="Assets/lupa_examinar.png" />
-        <Image Width="350"
-               DockPanel.Dock="Left"
-               Margin="10"
-               Source="{Binding Path=Foto}" />
+                              SmallIcon="Assets/lupa_examinar.png"
+                              FontSize="20" />
+        <syncfusion:ButtonAdv DockPanel.Dock="Bottom"
+                              Label="ENTRAR"
+                              HorizontalAlignment="Center"
+                              Margin="37,5,5,5"
+                              Command="{Binding Path=AbrirAceptarCommand}"
+                              SmallIcon="Assets/car.png"
+                              Width="200"
+                              FontSize="20" />
         <StackPanel Orientation="Vertical"
                     DockPanel.Dock="Right"
-                    VerticalAlignment="Top">
+                    VerticalAlignment="Center">
             <StackPanel Height="150"
                         Margin="10"
                         Background="#FF69B9FF">
@@ -35,7 +46,7 @@
                            Margin="5"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           FontSize="25" />
+                           FontSize="50" />
             </StackPanel>
             <StackPanel DockPanel.Dock="Right"
                         VerticalAlignment="Top"
@@ -49,15 +60,10 @@
                            Margin="5"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           FontSize="25" />
+                           FontSize="50" />
             </StackPanel>
         </StackPanel>
-        <syncfusion:ButtonAdv DockPanel.Dock="Bottom"
-                              Label="ENTRAR"
-                              HorizontalAlignment="Center"
-                              Margin="37,5,5,5"
-                              Command="{Binding Path=AbrirAceptarCommand}"
-                              SmallIcon="Assets/car.png"
-                              Width="101" />
+        <Image Margin="10"
+               Source="{Binding Path=Foto}" />
     </DockPanel>
 </Window>

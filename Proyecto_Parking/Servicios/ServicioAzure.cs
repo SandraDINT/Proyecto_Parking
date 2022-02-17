@@ -10,15 +10,16 @@ using Azure.Storage.Blobs;
 namespace Proyecto_Parking.Servicios
 {
     /// <summary>
-    /// El servicio ServicioAzure nos permite guardar una imagen en un contenedor de Azure
+    /// El servicio ServicioAzure nos permite guardar una imagen en un contenedor de Azure.
+    /// Creado por Sr.J.
     /// </summary>
     class ServicioAzure
     {
         /// <summary>
-        /// El metodo GuardarImagen nos permite guardar una imagen en azure
+        /// El metodo GuardarImagen nos permite guardar una imagen en azure.
         /// </summary>
-        /// <param name="rutaImagen">Le deberemos de pasar como parametro la ruta local de la foto que queremos guardar en Azure</param>
-        /// <returns>Nos debuelve un string el cual nos indica la ruta de la imagen en el contenedor de Azure</returns>
+        /// <param name="rutaImagen">Le deberemos de pasar como parametro la ruta local de la foto que queremos guardar en Azure.</param>
+        /// <returns>Nos debuelve un string el cual nos indica la ruta de la imagen en el contenedor de Azure.</returns>
         public string GuardarImagen(string rutaImagen)
         {
 

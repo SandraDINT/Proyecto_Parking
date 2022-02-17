@@ -12,12 +12,12 @@ using System.Windows;
 namespace Proyecto_Parking.Servicios
 {
     /// <summary>
-    /// La clase BDService se encargará de conectar con la base de datos parking para recoger e insertar los datos solicitados.
+    /// La clase BDService se encargará de conectar con la base de datos parking para recoger, insertar, actualizar o eliminar los datos solicitados.
     /// </summary>
     class BDService
     {
         //Si no existe, lo creará
-        public readonly SqliteConnection conexion = new SqliteConnection("Data Source = C:/bd_dint/parking.db");
+        public readonly SqliteConnection conexion = new SqliteConnection("Data Source = " + Properties.Settings.Default.EnlaceBD);
 
         #region TABLA CLIENTES
         /// <summary>
