@@ -45,7 +45,6 @@ namespace Proyecto_Parking.clase
             set { SetProperty(ref salida, value); }
         }
 
-        //campo calculado ??
         private double importe;
 
         public double Importe
@@ -75,7 +74,6 @@ namespace Proyecto_Parking.clase
             IdVehiculo = idVehiculo;
             Matricula = matricula;
             Entrada = entrada;
-            //esto soluciona-> Unable to cast object of type 'System.DBNull' to type 'System.String'
             if (salida == null)
                 Salida = String.Empty;
             else
