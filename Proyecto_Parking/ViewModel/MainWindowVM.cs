@@ -13,12 +13,9 @@ using System.Windows;
 
 namespace Proyecto_Parking.ViewModel
 {
-    
+
     class MainWindowVM : ObservableObject
     {
-        private const string COCHE = "Coche";
-        private const string MOTO = "Motocicleta";
-
         private const int TOTAL_PLAZAS_COCHE = 50;
         private const int TOTAL_PLAZAS_MOTO = 50;
 
@@ -126,78 +123,73 @@ namespace Proyecto_Parking.ViewModel
 
         private void AbrirExaminar()
         {
-            string rutaImagen = dialogosService.AbrirArchivoDialogo(filtrosRuta);
-            rutaAzure = azureService.GuardarImagen(rutaImagen);
-            Foto = rutaAzure;
+            try
+            {
+                string rutaImagen = dialogosService.AbrirArchivoDialogo(filtrosRuta);
+                rutaAzure = azureService.GuardarImagen(rutaImagen);
+                Foto = rutaAzure;
+            }//System.AggregateException System.ArgumentOutOfRangeException
+            catch (AggregateException)
+            {
+                dialogosService.MensajeError("ERROR", "Error al guardar la imagen");
+            }
+            catch (Azure.RequestFailedException)
+            {
+                dialogosService.MensajeError("ERROR", "Error con la imagen");
+            }
+            catch (Exception)
+            {
+                dialogosService.MensajeError("ERROR", "Error desconocido");
+            }
         }
 
-        private void EntrarAlParking() 
+        private void EntrarAlParking()
         {
-            Estacionamiento estacionamiento = new Estacionamiento();
-            string tipo = reconocimientoService.ReconocerVehiculo(rutaAzure);
-            string matricula = matriculaService.LeerMatricula(rutaAzure, tipo);
-
-            if(tipo == COCHE)
+            try
             {
-                InsertaCoche(matricula, tipo, estacionamiento);
-                PlazasLibresCoche--;
+                Estacionamiento estacionamiento = new Estacionamiento();
+                string tipo = reconocimientoService.ReconocerVehiculo(rutaAzure);
+                string matricula = matriculaService.LeerMatricula(rutaAzure, tipo);
+                if (tipo == "Coche")
+                {
+                    PlazasLibresCoche--;
+                }
+                else
+                {
+                    PlazasLibresMoto--;
+                }
+                InsertaVehiculo(matricula, tipo, estacionamiento);
+                //cuando el vehículo entra en el parking, desaparece su imagen y se pone por defecto no_image_car
+                Foto = "Assets/no_image_car.png";
             }
-            else if(tipo == MOTO)
+            catch (Exception)
             {
-                InsertaMotocicleta(matricula, tipo, estacionamiento);
-                PlazasLibresMoto--;
+                dialogosService.MensajeError("ERROR", "Error al identificar vehículo");
             }
         }
 
-        private void InsertaCoche(string matricula, string tipo, Estacionamiento estacionamiento)
+        private void InsertaVehiculo(string matricula, string tipo, Estacionamiento estacionamiento)
         {
             if (!bdService.BuscaEstacionamientoPorMatricula(matricula) &&
                 SacarPlazasLibresCoche() > 0)
             {
                 estacionamiento.Matricula = matricula;
                 estacionamiento.Tipo = tipo;
-                estacionamiento.Entrada = DateTime.Now.ToString();
+                estacionamiento.Entrada = "";
                 if (!bdService.BuscaVehiculosPorMatricula(matricula))
                 {
                     estacionamiento.IdVehiculo = -1;
                     bdService.InsertaEstacionamiento(estacionamiento);
-                    MessageBox.Show("Estacionamiento insertado con éxito");
                 }
                 else
                 {
                     IdVehiculo = bdService.BuscaIDVehiculoPorMatricula(matricula);
                     estacionamiento.IdVehiculo = IdVehiculo;
                     bdService.InsertaEstacionamiento(estacionamiento);
-                    MessageBox.Show("Estacionamiento insertado con éxito");
                 }
             }
             else
-                MessageBox.Show("Estacionamiento ya activo, imposible crear");
-        }
-        private void InsertaMotocicleta(string matricula, string tipo, Estacionamiento estacionamiento)
-        {
-            if (!bdService.BuscaEstacionamientoPorMatricula(matricula) &&
-                SacarPlazasLibresMoto() > 0)
-            {
-                estacionamiento.Matricula = matricula;
-                estacionamiento.Tipo = tipo;
-                estacionamiento.Entrada = DateTime.Now.ToString();
-                if (!bdService.BuscaVehiculosPorMatricula(matricula))
-                {
-                    estacionamiento.IdVehiculo = -1;
-                    bdService.InsertaEstacionamiento(estacionamiento);
-                    MessageBox.Show("Estacionamiento insertado con éxito");
-                }
-                else
-                {
-                    IdVehiculo = bdService.BuscaIDVehiculoPorMatricula(matricula);
-                    estacionamiento.IdVehiculo = IdVehiculo;
-                    bdService.InsertaEstacionamiento(estacionamiento);
-                    MessageBox.Show("Estacionamiento insertado con éxito");
-                }
-            }
-            else
-                MessageBox.Show("Estacionamiento ya activo, imposible crear");
+                dialogosService.MensajeError("ERROR", "Estacionamiento ya activo, imposible crear");
         }
     }
 }
