@@ -11,7 +11,8 @@ namespace Proyecto_Parking.Servicios
 {
     /// <summary>
     /// La clase LeerMatriculaService nos ayudara con el reconocimiento del vehiculo
-    /// con una IA para leer texto
+    /// con una IA para leer texto.
+    /// Creado por Sr.J.
     /// </summary>
     class LeerMatriculaService
     {
