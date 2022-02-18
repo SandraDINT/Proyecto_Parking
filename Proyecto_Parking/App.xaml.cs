@@ -13,12 +13,9 @@ namespace Proyecto_Parking
     /// </summary>
     public partial class App : Application
     {
-        private const string KEY = "NTY2OTI3QDMxMzkyZTM0MmUzMG85Q0toWFI2U2dGcVIwdjlXRHBDVGlHanpxZFlWVEJLcnZWUWtuSE5EekU9";
-
         public App()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(KEY);
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Proyecto_Parking.Properties.Settings.Default.KeySynfusion);
         }
-
     }
 }

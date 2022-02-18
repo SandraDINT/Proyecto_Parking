@@ -105,5 +105,15 @@ namespace Proyecto_Parking.Properties {
                 return ((string)(this["EnlaceBD"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("NTY2OTI3QDMxMzkyZTM0MmUzMG85Q0toWFI2U2dGcVIwdjlXRHBDVGlHanpxZFlWVEJLcnZWUWtuSE5Ee" +
+            "kU9")]
+        public string KeySynfusion {
+            get {
+                return ((string)(this["KeySynfusion"]));
+            }
+        }
     }
 }
