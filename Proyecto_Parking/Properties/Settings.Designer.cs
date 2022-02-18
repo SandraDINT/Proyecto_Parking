@@ -115,5 +115,29 @@ namespace Proyecto_Parking.Properties {
                 return ((string)(this["KeySynfusion"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int PlazasCoche {
+            get {
+                return ((int)(this["PlazasCoche"]));
+            }
+            set {
+                this["PlazasCoche"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int PlazasMoto {
+            get {
+                return ((int)(this["PlazasMoto"]));
+            }
+            set {
+                this["PlazasMoto"] = value;
+            }
+        }
     }
 }

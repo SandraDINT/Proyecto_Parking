@@ -16,9 +16,6 @@ namespace Proyecto_Parking.ViewModel
 
     class MainWindowVM : ObservableObject
     {
-        private const int TOTAL_PLAZAS_COCHE = 50;
-        private const int TOTAL_PLAZAS_MOTO = 50;
-
         private readonly ReconocimientoVehiculoService reconocimientoService;
         private readonly LeerMatriculaService matriculaService;
         private readonly BDService bdService;
@@ -103,7 +100,7 @@ namespace Proyecto_Parking.ViewModel
         {
             int plazasLibres;
             _plazasOcupadasCoche = bdService.CuentaEstacionamientosNoFinalizadosCoche();
-            plazasLibres = _plazasLibresCoche = TOTAL_PLAZAS_COCHE - _plazasOcupadasCoche;
+            plazasLibres = _plazasLibresCoche = Properties.Settings.Default.PlazasCoche - _plazasOcupadasCoche;
             return plazasLibres;
         }
         private int SacarPlazasLibresMoto()
@@ -111,7 +108,7 @@ namespace Proyecto_Parking.ViewModel
             int plazasLibres;
             _plazasOcupadasMoto = bdService.CuentaEstacionamientosNoFinalizadosMoto();
 
-            plazasLibres = _plazasLibresMoto = TOTAL_PLAZAS_MOTO - _plazasOcupadasMoto;
+            plazasLibres = _plazasLibresMoto = Properties.Settings.Default.PlazasMoto - _plazasOcupadasMoto;
             return plazasLibres;
         }
         private string _foto;
