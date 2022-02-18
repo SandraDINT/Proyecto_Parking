@@ -133,6 +133,7 @@ namespace Proyecto_Parking.ViewModel
             {
                 dialogosService.MensajeError("ERROR", "Error al guardar la imagen");
             }
+            catch (ArgumentException) { Console.WriteLine("Ha cerrado dialogo"); }
             catch (Azure.RequestFailedException)
             {
                 dialogosService.MensajeError("ERROR", "Error con la imagen");
