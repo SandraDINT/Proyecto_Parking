@@ -20,8 +20,10 @@ namespace Proyecto_Parking.Servicios
         /// <returns>Nos retorna la ruta del archivo elegido por el usuario.</returns>
         public string AbrirArchivoDialogo(string filtro)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = filtro;
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = filtro
+            };
             openFileDialog.ShowDialog();
 
             return openFileDialog.FileName;
