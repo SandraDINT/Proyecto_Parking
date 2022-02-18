@@ -155,7 +155,7 @@ namespace Proyecto_Parking.Servicios
         }
 
         /// <summary>
-        /// Este método busca estacionamiento por matricula proporcionada
+        /// Este método busca estacionamiento no finalizado por matricula proporcionada
         /// </summary>
         /// <param name="matricula">Este parámetro es la matricula del coche estacionado a buscar</param>
         /// <returns>Devuelve true si encuentra coincidencia, false si no</returns>
@@ -168,7 +168,7 @@ namespace Proyecto_Parking.Servicios
                 conexion.Open();
                 SqliteCommand comando = conexion.CreateCommand();
                 //Consulta de selección
-                comando.CommandText = "SELECT * FROM estacionamientos WHERE matricula LIKE @matricula";
+                comando.CommandText = "SELECT * FROM estacionamientos WHERE salida = '' AND matricula LIKE @matricula";
                 comando.Parameters.Add("@matricula", SqliteType.Text);
                 comando.Parameters["@matricula"].Value = matricula;
 
