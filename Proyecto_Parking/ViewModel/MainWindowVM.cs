@@ -101,14 +101,14 @@ namespace Proyecto_Parking.ViewModel
         }
         private int SacarPlazasLibresCoche()
         {
-            int plazasLibres = 0;
+            int plazasLibres;
             _plazasOcupadasCoche = bdService.CuentaEstacionamientosNoFinalizadosCoche();
             plazasLibres = _plazasLibresCoche = TOTAL_PLAZAS_COCHE - _plazasOcupadasCoche;
             return plazasLibres;
         }
         private int SacarPlazasLibresMoto()
         {
-            int plazasLibres = 0;
+            int plazasLibres;
             _plazasOcupadasMoto = bdService.CuentaEstacionamientosNoFinalizadosMoto();
 
             plazasLibres = _plazasLibresMoto = TOTAL_PLAZAS_MOTO - _plazasOcupadasMoto;
